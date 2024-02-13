@@ -40,6 +40,10 @@ class AuthController extends Controller
      */
     public function me()
     {
+        if (! auth()->check()) {
+            return response()->json(['error' => 'Token has expired'], 401);
+        }
+
         return response()->json(auth()->user());
     }
 
@@ -69,7 +73,9 @@ class AuthController extends Controller
     {
         //dd('chuj');
 
-        return $userRepository->register($request);
+        $token = $userRepository->register($request);
+
+        return $this->respondWithToken($token);
     }
 
     /**
