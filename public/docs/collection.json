@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "LoLify",
-        "_postman_id": "02342254-6cf9-4d08-8528-00b66787340f",
+        "_postman_id": "437272ab-eb7f-452a-a21f-583ce5601f2d",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"olson.eloy@example.org\",\"password\":\"y|4`5>;GP\"}"
+                            "raw": "{\"email\":\"darion60@example.com\",\"password\":\"Jm,>gZ=h[m*uvCb3,_<r\"}"
                         },
                         "description": "Get a JWT via given credentials.",
                         "auth": {
@@ -180,7 +180,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"ashtyn.collins@example.org\",\"name\":\"officiis\",\"password\":\"D?Dhj'4V\",\"password_confirmation\":\"error\"}"
+                            "raw": "{\"email\":\"ervin.oreilly@example.com\",\"name\":\"rem\",\"password\":\"zNr_-_O5sPP\",\"password_confirmation\":\"explicabo\"}"
                         },
                         "description": "This endpoint is used to register a new user.",
                         "auth": {

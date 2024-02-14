@@ -58,11 +58,11 @@ paths:
                 email:
                   type: required
                   description: 'string User email'
-                  example: olson.eloy@example.org
+                  example: darion60@example.com
                 password:
                   type: required
                   description: 'string User password'
-                  example: y|4`5>;GP
+                  example: 'Jm,>gZ=h[m*uvCb3,_<r'
       security: []
   /api/logout:
     post:
@@ -168,19 +168,19 @@ paths:
                 email:
                   type: required
                   description: 'string User email'
-                  example: ashtyn.collins@example.org
+                  example: ervin.oreilly@example.com
                 name:
                   type: required
                   description: 'string User name'
-                  example: officiis
+                  example: rem
                 password:
                   type: required
                   description: 'string User password'
-                  example: "D?Dhj'4V"
+                  example: zNr_-_O5sPP
                 password_confirmation:
                   type: required
                   description: 'string User password confirmtion'
-                  example: error
+                  example: explicabo
       security: []
 tags:
   -
