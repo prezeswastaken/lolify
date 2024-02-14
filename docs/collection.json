@@ -1,0 +1,217 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost"
+        }
+    ],
+    "info": {
+        "name": "LoLify",
+        "_postman_id": "437272ab-eb7f-452a-a21f-583ce5601f2d",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "",
+            "item": [
+                {
+                    "name": "Login",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"darion60@example.com\",\"password\":\"Jm,>gZ=h[m*uvCb3,_<r\"}"
+                        },
+                        "description": "Get a JWT via given credentials.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"access_token\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzA3ODQ5MjE1LCJleHAiOjE3MDc4NTI4MTUsIm5iZiI6MTcwNzg0OTIxNSwianRpIjoiNnFqVG96SU1EUUNWTEl5MyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwibmFtZSI6InByZXplcyJ9.8cIexRisn6VIky90dhJHmfZkaIntSduK30nupLa-ggI\",\"token_type\":\"bearer\",\"expires_in\":3600}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":\"Unauthorized! Those credentials didn't match our records.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Log the user out (Invalidate the token).",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Refresh a token.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/refresh",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/refresh"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get the authenticated User.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/me",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/me"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"error\":\"Unauthenticated\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Register a new user",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"ervin.oreilly@example.com\",\"name\":\"rem\",\"password\":\"zNr_-_O5sPP\",\"password_confirmation\":\"explicabo\"}"
+                        },
+                        "description": "This endpoint is used to register a new user.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n\"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3JlZ2lzdGVyIiwiaWF0IjoxNzA3ODQ2NDgzLCJleHAiOjE3MDc4NTAwODMsIm5iZiI6MTcwNzg0NjQ4MywianRpIjoiWWJEMU9Ia2FtMHBVQ1JhSiIsInN1YiI6IjEwIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsIm5hbWUiOiJwcmV6ZXMifQ.iSDUMleme6ztmn8cvs713_bxbNGgqzlQ-8kTWUqW83g\",\n\"token_type\": \"bearer\",\n\"expires_in\": 3600\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"email\": [\n        \"The email has already been taken.\"\n    ],\n    \"password\": [\n        \"The password field must be at least 8 characters.\",\n        \"The password field confirmation does not match.\"\n    ]\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "Authorization",
+                "type": "string"
+            }
+        ]
+    }
+}
