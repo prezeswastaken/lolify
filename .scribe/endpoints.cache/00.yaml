@@ -28,7 +28,7 @@ endpoints:
         name: email
         description: 'string User email'
         required: false
-        example: darion60@example.com
+        example: schmidt.drew@example.net
         type: required
         enumValues: []
         exampleWasSpecified: false
@@ -37,14 +37,14 @@ endpoints:
         name: password
         description: 'string User password'
         required: false
-        example: 'Jm,>gZ=h[m*uvCb3,_<r'
+        example: 'Up7DlmjD@C['
         type: required
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      email: darion60@example.com
-      password: 'Jm,>gZ=h[m*uvCb3,_<r'
+      email: schmidt.drew@example.net
+      password: 'Up7DlmjD@C['
     fileParameters: []
     responses:
       -
@@ -94,7 +94,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer kZv1de654Vc6Phaa8gfEbD3'
+      - 'Bearer aDh65vc1eV8bZfad6gE4Pk3'
     controller: null
     method: null
     route: null
@@ -128,7 +128,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6gEavcefb46ahP1Z5d38VDk'
+      - 'Bearer e3aa8DkgZV6Ev5f4Pbch1d6'
     controller: null
     method: null
     route: null
@@ -171,7 +171,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer eD68khgvVfcP6ZE35bd1aa4'
+      - 'Bearer 64Z63bda8eEcgDvPf5hk1aV'
     controller: null
     method: null
     route: null
@@ -201,7 +201,7 @@ endpoints:
         name: email
         description: 'string User email'
         required: false
-        example: ervin.oreilly@example.com
+        example: johnathon.boyle@example.com
         type: required
         enumValues: []
         exampleWasSpecified: false
@@ -210,7 +210,7 @@ endpoints:
         name: name
         description: 'string User name'
         required: false
-        example: rem
+        example: autem
         type: required
         enumValues: []
         exampleWasSpecified: false
@@ -219,7 +219,7 @@ endpoints:
         name: password
         description: 'string User password'
         required: false
-        example: zNr_-_O5sPP
+        example: "'PMrT*"
         type: required
         enumValues: []
         exampleWasSpecified: false
@@ -228,16 +228,16 @@ endpoints:
         name: password_confirmation
         description: 'string User password confirmtion'
         required: false
-        example: explicabo
+        example: et
         type: required
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      email: ervin.oreilly@example.com
-      name: rem
-      password: zNr_-_O5sPP
-      password_confirmation: explicabo
+      email: johnathon.boyle@example.com
+      name: autem
+      password: "'PMrT*"
+      password_confirmation: et
     fileParameters: []
     responses:
       -
