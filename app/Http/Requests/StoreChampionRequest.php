@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Auth;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreChampionRequest extends FormRequest
 {
@@ -11,7 +14,12 @@ class StoreChampionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        if (! Auth::user()) {
+            return false;
+        }
+
+        return Auth::user()->is_admin;
+
     }
 
     /**
@@ -22,7 +30,20 @@ class StoreChampionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'string|required|min:2',
+            'description' => 'string',
         ];
+    }
+
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @return void
+     *
+     * @throws \Illuminate\Http\Exceptions\HttpResponseException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
 }

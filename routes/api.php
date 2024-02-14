@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChampionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,5 @@ Route::post('logout', [App\Http\Controllers\AuthController::class, 'logout']);
 Route::post('refresh', [App\Http\Controllers\AuthController::class, 'refresh']);
 Route::get('me', [App\Http\Controllers\AuthController::class, 'me']);
 Route::post('register', [App\Http\Controllers\AuthController::class, 'register']);
+
+Route::resource('champion', ChampionController::class);
