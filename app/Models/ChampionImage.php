@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ChampionImage extends Model
 {
     use HasFactory;
+
+    public function champion()
+    {
+        return $this->belongsTo(Champion::class);
+    }
 }

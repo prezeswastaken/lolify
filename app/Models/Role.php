@@ -11,6 +11,6 @@ class Role extends Model
 
     public function champions()
     {
-        return $this->hasMany(Champion::class);
+        return $this->belongsToMany(Champion::class);
     }
 }

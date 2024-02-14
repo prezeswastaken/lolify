@@ -59,4 +59,12 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Returns a list of champions liked by the user
+     */
+    public function champions()
+    {
+        return $this->belongsToMany(Champion::class, 'likes');
+    }
 }
