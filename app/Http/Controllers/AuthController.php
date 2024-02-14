@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterRequest;
 use App\Repositories\UserRepository;
 
+/**
+ * @group Authentication
+ */
 class AuthController extends Controller
 {
     /**
@@ -18,7 +21,53 @@ class AuthController extends Controller
     }
 
     /**
+     * Register a new user
+     *
+     * This endpoint is used to register a new user.
+     *
+     * @unauthenticated
+     *
+     * @bodyParam email required string User email
+     * @bodyParam name required string User name
+     * @bodyParam password required string User password
+     * @bodyParam password_confirmation required string User password confirmtion
+     *
+     * @response 200 {
+     * "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3JlZ2lzdGVyIiwiaWF0IjoxNzA3ODQ2NDgzLCJleHAiOjE3MDc4NTAwODMsIm5iZiI6MTcwNzg0NjQ4MywianRpIjoiWWJEMU9Ia2FtMHBVQ1JhSiIsInN1YiI6IjEwIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsIm5hbWUiOiJwcmV6ZXMifQ.iSDUMleme6ztmn8cvs713_bxbNGgqzlQ-8kTWUqW83g",
+     * "token_type": "bearer",
+     * "expires_in": 3600
+     * }
+     * @response 422 {
+     *     "email": [
+     *         "The email has already been taken."
+     *     ],
+     *     "password": [
+     *         "The password field must be at least 8 characters.",
+     *         "The password field confirmation does not match."
+     *     ]
+     * }
+     */
+    public function register(RegisterRequest $request, UserRepository $userRepository)
+    {
+        //dd('chuj');
+
+        $token = $userRepository->register($request);
+
+        return $this->respondWithToken($token);
+    }
+
+    /**
+     * Login
+     *
      * Get a JWT via given credentials.
+     *
+     * @unauthenticated
+     *
+     * @bodyParam email required string User email
+     * @bodyParam password required string User password
+     *
+     * @response 200 {"access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzA3ODQ5MjE1LCJleHAiOjE3MDc4NTI4MTUsIm5iZiI6MTcwNzg0OTIxNSwianRpIjoiNnFqVG96SU1EUUNWTEl5MyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwibmFtZSI6InByZXplcyJ9.8cIexRisn6VIky90dhJHmfZkaIntSduK30nupLa-ggI","token_type":"bearer","expires_in":3600}
+     * @response 401 {"error":"Unauthorized! Those credentials didn't match our records."}
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -27,7 +76,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => "Unauthorized! Those credentials didn't match our records."], 401);
         }
 
         return $this->respondWithToken($token);
@@ -40,10 +89,6 @@ class AuthController extends Controller
      */
     public function me()
     {
-        if (! auth()->check()) {
-            return response()->json(['error' => 'Token has expired'], 401);
-        }
-
         return response()->json(auth()->user());
     }
 
@@ -67,15 +112,6 @@ class AuthController extends Controller
     public function refresh()
     {
         return $this->respondWithToken(auth()->refresh());
-    }
-
-    public function register(RegisterRequest $request, UserRepository $userRepository)
-    {
-        //dd('chuj');
-
-        $token = $userRepository->register($request);
-
-        return $this->respondWithToken($token);
     }
 
     /**

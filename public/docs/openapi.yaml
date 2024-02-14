@@ -1,0 +1,197 @@
+openapi: 3.0.3
+info:
+  title: LoLify
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/login:
+    post:
+      summary: Login
+      operationId: login
+      description: 'Get a JWT via given credentials.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzA3ODQ5MjE1LCJleHAiOjE3MDc4NTI4MTUsIm5iZiI6MTcwNzg0OTIxNSwianRpIjoiNnFqVG96SU1EUUNWTEl5MyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwibmFtZSI6InByZXplcyJ9.8cIexRisn6VIky90dhJHmfZkaIntSduK30nupLa-ggI
+                  token_type: bearer
+                  expires_in: 3600
+                properties:
+                  access_token:
+                    type: string
+                    example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzA3ODQ5MjE1LCJleHAiOjE3MDc4NTI4MTUsIm5iZiI6MTcwNzg0OTIxNSwianRpIjoiNnFqVG96SU1EUUNWTEl5MyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwibmFtZSI6InByZXplcyJ9.8cIexRisn6VIky90dhJHmfZkaIntSduK30nupLa-ggI
+                  token_type:
+                    type: string
+                    example: bearer
+                  expires_in:
+                    type: integer
+                    example: 3600
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error: "Unauthorized! Those credentials didn't match our records."
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized! Those credentials didn't match our records."
+      tags:
+        - Authentication
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: required
+                  description: 'string User email'
+                  example: olson.eloy@example.org
+                password:
+                  type: required
+                  description: 'string User password'
+                  example: y|4`5>;GP
+      security: []
+  /api/logout:
+    post:
+      summary: 'Log the user out (Invalidate the token).'
+      operationId: logTheUserOutInvalidateTheToken
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Authentication
+  /api/refresh:
+    post:
+      summary: 'Refresh a token.'
+      operationId: refreshAToken
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Authentication
+  /api/me:
+    get:
+      summary: 'Get the authenticated User.'
+      operationId: getTheAuthenticatedUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error: Unauthenticated
+                properties:
+                  error:
+                    type: string
+                    example: Unauthenticated
+      tags:
+        - Authentication
+  /api/register:
+    post:
+      summary: 'Register a new user'
+      operationId: registerANewUser
+      description: 'This endpoint is used to register a new user.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3JlZ2lzdGVyIiwiaWF0IjoxNzA3ODQ2NDgzLCJleHAiOjE3MDc4NTAwODMsIm5iZiI6MTcwNzg0NjQ4MywianRpIjoiWWJEMU9Ia2FtMHBVQ1JhSiIsInN1YiI6IjEwIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsIm5hbWUiOiJwcmV6ZXMifQ.iSDUMleme6ztmn8cvs713_bxbNGgqzlQ-8kTWUqW83g
+                  token_type: bearer
+                  expires_in: 3600
+                properties:
+                  access_token:
+                    type: string
+                    example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3JlZ2lzdGVyIiwiaWF0IjoxNzA3ODQ2NDgzLCJleHAiOjE3MDc4NTAwODMsIm5iZiI6MTcwNzg0NjQ4MywianRpIjoiWWJEMU9Ia2FtMHBVQ1JhSiIsInN1YiI6IjEwIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsIm5hbWUiOiJwcmV6ZXMifQ.iSDUMleme6ztmn8cvs713_bxbNGgqzlQ-8kTWUqW83g
+                  token_type:
+                    type: string
+                    example: bearer
+                  expires_in:
+                    type: integer
+                    example: 3600
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email:
+                    - 'The email has already been taken.'
+                  password:
+                    - 'The password field must be at least 8 characters.'
+                    - 'The password field confirmation does not match.'
+                properties:
+                  email:
+                    type: array
+                    example:
+                      - 'The email has already been taken.'
+                    items:
+                      type: string
+                  password:
+                    type: array
+                    example:
+                      - 'The password field must be at least 8 characters.'
+                      - 'The password field confirmation does not match.'
+                    items:
+                      type: string
+      tags:
+        - Authentication
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: required
+                  description: 'string User email'
+                  example: ashtyn.collins@example.org
+                name:
+                  type: required
+                  description: 'string User name'
+                  example: officiis
+                password:
+                  type: required
+                  description: 'string User password'
+                  example: "D?Dhj'4V"
+                password_confirmation:
+                  type: required
+                  description: 'string User password confirmtion'
+                  example: error
+      security: []
+tags:
+  -
+    name: Authentication
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'JWT token is taken by using /api/login endpoint. It returns JWT token that expires in one hour.'
+security:
+  -
+    default: []
