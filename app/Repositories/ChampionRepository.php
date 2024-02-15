@@ -14,6 +14,15 @@ class ChampionRepository
     {
         $championData = $request->only(['name', 'description']);
 
+        $image = $request->file('image_file');
+        if ($image) {
+            $fileName = $championData['name'].' - '.strval(time());
+            $fullPath = 'public/images';
+            $championData['image_link'] = url('/')."/storage/images/$fileName";
+
+            $image->storeAs($fullPath, $fileName);
+        }
+
         $champion = Champion::create($championData);
 
         return $champion;

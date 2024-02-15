@@ -4,4 +4,4 @@ To authenticate requests, include an **`Authorization`** header with the value *
 
 All authenticated endpoints are marked with a `requires authentication` badge in the documentation below.
 
-JWT token is taken by using /api/login endpoint. It returns JWT token that expires in one hour.
+JWT token can be accquired by using /api/login endpoint. It returns JWT token that expires in one hour.

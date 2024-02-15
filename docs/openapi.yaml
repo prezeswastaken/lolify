@@ -58,11 +58,11 @@ paths:
                 email:
                   type: required
                   description: 'string User email'
-                  example: darion60@example.com
+                  example: athena13@example.org
                 password:
                   type: required
                   description: 'string User password'
-                  example: 'Jm,>gZ=h[m*uvCb3,_<r'
+                  example: '^)~yz@$z,!#9'
       security: []
   /api/logout:
     post:
@@ -168,30 +168,152 @@ paths:
                 email:
                   type: required
                   description: 'string User email'
-                  example: ervin.oreilly@example.com
+                  example: delores10@example.org
                 name:
                   type: required
                   description: 'string User name'
-                  example: rem
+                  example: repellendus
                 password:
                   type: required
                   description: 'string User password'
-                  example: zNr_-_O5sPP
+                  example: '-$k1\iX'
                 password_confirmation:
                   type: required
                   description: 'string User password confirmtion'
-                  example: explicabo
+                  example: perspiciatis
       security: []
+  /api/champion:
+    get:
+      summary: ''
+      operationId: getApiChampion
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  -
+                    id: 1
+                    name: Yasuo
+                    description: 'Noob champ of the wind'
+                    created_at: '2024-02-14T09:40:07.000000Z'
+                    updated_at: '2024-02-14T09:40:07.000000Z'
+                  -
+                    id: 2
+                    name: Warwick
+                    description: null
+                    created_at: '2024-02-14T09:40:27.000000Z'
+                    updated_at: '2024-02-14T09:40:27.000000Z'
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Create new champion'
+      operationId: createNewChampion
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: Yasuo
+                description:
+                  type: string
+                  description: ''
+                  example: 'The NoobChamp'
+              required:
+                - name
+  '/api/champion/{id}':
+    get:
+      summary: 'Get champion by champion id'
+      operationId: getChampionByChampionId
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: Yasuo
+                  description: 'Noob champ of the wind'
+                  created_at: '2024-02-14T09:40:07.000000Z'
+                  updated_at: '2024-02-14T09:40:07.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Yasuo
+                  description:
+                    type: string
+                    example: 'Noob champ of the wind'
+                  created_at:
+                    type: string
+                    example: '2024-02-14T09:40:07.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-02-14T09:40:07.000000Z'
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: 'Update the specified resource in storage.'
+      operationId: updateTheSpecifiedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the champion.'
+        example: 1
+        required: true
+        schema:
+          type: integer
 tags:
   -
     name: Authentication
+    description: ''
+  -
+    name: Endpoints
     description: ''
 components:
   securitySchemes:
     default:
       type: http
       scheme: bearer
-      description: 'JWT token is taken by using /api/login endpoint. It returns JWT token that expires in one hour.'
+      description: 'JWT token can be accquired by using /api/login endpoint. It returns JWT token that expires in one hour.'
 security:
   -
     default: []

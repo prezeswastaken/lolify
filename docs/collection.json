@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "LoLify",
-        "_postman_id": "437272ab-eb7f-452a-a21f-583ce5601f2d",
+        "_postman_id": "5113543a-b6e7-437f-b045-9290a8bd990d",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"darion60@example.com\",\"password\":\"Jm,>gZ=h[m*uvCb3,_<r\"}"
+                            "raw": "{\"email\":\"athena13@example.org\",\"password\":\"^)~yz@$z,!#9\"}"
                         },
                         "description": "Get a JWT via given credentials.",
                         "auth": {
@@ -180,7 +180,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"ervin.oreilly@example.com\",\"name\":\"rem\",\"password\":\"zNr_-_O5sPP\",\"password_confirmation\":\"explicabo\"}"
+                            "raw": "{\"email\":\"delores10@example.org\",\"name\":\"repellendus\",\"password\":\"-$k1\\\\iX\",\"password_confirmation\":\"perspiciatis\"}"
                         },
                         "description": "This endpoint is used to register a new user.",
                         "auth": {
@@ -201,6 +201,226 @@
                             "name": ""
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "GET api\/champion",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/champion",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/champion"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "59"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "[{\"id\":1,\"name\":\"Yasuo\",\"description\":\"Noob champ of the wind\",\"created_at\":\"2024-02-14T09:40:07.000000Z\",\"updated_at\":\"2024-02-14T09:40:07.000000Z\"},{\"id\":2,\"name\":\"Warwick\",\"description\":null,\"created_at\":\"2024-02-14T09:40:27.000000Z\",\"updated_at\":\"2024-02-14T09:40:27.000000Z\"}]",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create new champion",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/champion",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/champion"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Yasuo\",\"description\":\"The NoobChamp\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get champion by champion id",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/champion\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/champion\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the champion."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "58"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"id\":1,\"name\":\"Yasuo\",\"description\":\"Noob champ of the wind\",\"created_at\":\"2024-02-14T09:40:07.000000Z\",\"updated_at\":\"2024-02-14T09:40:07.000000Z\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update the specified resource in storage.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/champion\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/champion\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the champion."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Remove the specified resource from storage.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/champion\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/champion\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the champion."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": []
                 }
             ]
         }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Auth;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use JWTAuth;
 
 class StoreChampionRequest extends FormRequest
 {
@@ -14,11 +14,11 @@ class StoreChampionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (! Auth::user()) {
+        if (! JWTAuth::user()) {
             return false;
         }
 
-        return Auth::user()->is_admin;
+        return JWTAuth::user()->is_admin === 'true';
 
     }
 
@@ -31,7 +31,8 @@ class StoreChampionRequest extends FormRequest
     {
         return [
             'name' => 'string|required|min:2',
-            'description' => 'string',
+            'description' => 'string|nullable',
+            'image_file' => 'file',
         ];
     }
 
@@ -45,5 +46,10 @@ class StoreChampionRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json($validator->errors(), 422));
+    }
+
+    protected function failedAuthorization()
+    {
+        throw new HttpResponseException(response()->json(['error' => 'Only admin can access this route!'], 403));
     }
 }

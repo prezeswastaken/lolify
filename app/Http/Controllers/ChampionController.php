@@ -16,19 +16,23 @@ class ChampionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'register']]);
+        $this->middleware('auth:api', ['except' => ['index', 'register', 'show']]);
     }
 
     /**
+     * @unauthenticated
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return Champion::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create new champion
+     *
+     * @bodyParam name string required Example: Yasuo
+     * @bodyParam description string Example: The NoobChamp
      */
     public function store(StoreChampionRequest $request, ChampionRepository $championRepository)
     {
@@ -36,19 +40,13 @@ class ChampionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Get champion by champion id
+     *
+     * @unauthenticated
      */
     public function show(Champion $champion)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Champion $champion)
-    {
-        //
+        return $champion;
     }
 
     /**
@@ -64,6 +62,6 @@ class ChampionController extends Controller
      */
     public function destroy(Champion $champion)
     {
-        //
+        $champion->delete();
     }
 }
