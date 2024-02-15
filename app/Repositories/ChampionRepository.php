@@ -16,7 +16,8 @@ class ChampionRepository
 
         $image = $request->file('image_file');
         if ($image) {
-            $fileName = $championData['name'].' - '.strval(time());
+            $extension = '.jpg';
+            $fileName = $championData['name'].' - '.strval(time()).$extension;
             $fullPath = 'public/images';
             $championData['image_link'] = url('/')."/storage/images/$fileName";
 
