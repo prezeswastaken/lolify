@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('champion_role', function (Blueprint $table) {
-            $table->foreignIdFor(Champion::class)->constrained();
+            $table->foreignIdFor(Champion::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(Role::class)->constrained();
             $table->timestamps();
         });
