@@ -17,11 +17,10 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property string $description
- * @property string $image_link
- * @property int $role_id
+ * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $image_link
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChampionImage> $champion_images
  * @property-read int|null $champion_images_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $roles
@@ -38,7 +37,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Champion whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Champion whereImageLink($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Champion whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Champion whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Champion whereUpdatedAt($value)
  */
 	class Champion extends \Eloquent {}
@@ -48,10 +46,20 @@ namespace App\Models{
 /**
  * App\Models\ChampionImage
  *
- * @property-read \App\Models\Champion|null $champion
+ * @property int $id
+ * @property int $champion_id
+ * @property string $image_link
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Champion $champion
  * @method static \Illuminate\Database\Eloquent\Builder|ChampionImage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ChampionImage newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ChampionImage query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ChampionImage whereChampionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChampionImage whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChampionImage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChampionImage whereImageLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChampionImage whereUpdatedAt($value)
  */
 	class ChampionImage extends \Eloquent {}
 }
@@ -61,6 +69,7 @@ namespace App\Models{
  * App\Models\Role
  *
  * @property int $id
+ * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Champion> $champions
@@ -70,6 +79,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Role query()
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
  */
 	class Role extends \Eloquent {}

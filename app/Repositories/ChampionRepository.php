@@ -12,7 +12,8 @@ class ChampionRepository
 {
     public function create(StoreChampionRequest $request)
     {
-        $championData = $request->only(['name', 'description']);
+        $roleIds = $request->roles;
+        $championData = $request->only(['name', 'description', 'title']);
 
         $image = $request->file('image_file');
         if ($image) {
@@ -25,6 +26,8 @@ class ChampionRepository
         }
 
         $champion = Champion::create($championData);
+
+        $champion->roles()->attach($roleIds);
 
         return $champion;
     }

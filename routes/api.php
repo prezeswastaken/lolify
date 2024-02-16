@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChampionController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,5 @@ Route::get('me', [App\Http\Controllers\AuthController::class, 'me']);
 Route::post('register', [App\Http\Controllers\AuthController::class, 'register']);
 
 Route::resource('champion', ChampionController::class);
+
+Route::resource('role', RoleController::class);

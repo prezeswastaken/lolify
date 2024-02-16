@@ -31,8 +31,10 @@ class StoreChampionRequest extends FormRequest
     {
         return [
             'name' => 'string|required|min:2',
+            'title' => 'string|nullable',
             'description' => 'string|nullable',
             'image_file' => 'file',
+            'roles' => 'array|required',
         ];
     }
 
