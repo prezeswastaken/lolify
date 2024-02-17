@@ -19,7 +19,6 @@ class UserRepository
         $credentials = ['email' => $request->email, 'password' => $request->password];
 
         if (! $token = auth()->attempt($credentials)) {
-            dd('i chuj');
 
             return response()->json(['error' => 'Unauthorized'], 401);
         }

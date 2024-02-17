@@ -10,8 +10,16 @@ use App\Models\Champion;
  */
 class ChampionRepository
 {
-    public function create(StoreChampionRequest $request, SkillRepository $skillRepository)
+    public function create(StoreChampionRequest $request, SkillRepository $skillRepository, SkinRepository $skinRepository)
     {
+        // Extract skin images
+        $skins = [
+            $request->file('skin_1_image_file'),
+            $request->file('skin_2_image_file'),
+            $request->file('skin_3_image_file'),
+            $request->file('skin_4_image_file'),
+        ];
+
         // Extract skills from request
         $q = ['name' => $request['q_name'], 'image_file' => $request->file('q_image_file'), 'letter' => 'q'];
         $w = ['name' => $request['w_name'], 'image_file' => $request->file('w_image_file'), 'letter' => 'w'];
@@ -40,6 +48,12 @@ class ChampionRepository
 
         foreach ($skills as $skill) {
             $skillRepository->create($champion, $skill);
+        }
+
+        foreach (array_values($skins) as $i => $skinImageFile) {
+            if ($skinImageFile) {
+                $skinRepository->create($champion, $skinImageFile, $i);
+            }
         }
 
         return $champion;

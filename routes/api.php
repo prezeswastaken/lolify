@@ -24,5 +24,6 @@ Route::post('register', [App\Http\Controllers\AuthController::class, 'register']
 Route::get('champion', [ChampionController::class, 'index']);
 Route::post('champion', [ChampionController::class, 'store']);
 Route::get('champion/skills/{champion}', [ChampionController::class, 'skills']);
+Route::delete('champion/skills/{champion}', [ChampionController::class, 'destroy']);
 
 Route::get('role', [RoleController::class, 'index']);

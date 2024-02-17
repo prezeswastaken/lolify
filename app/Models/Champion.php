@@ -21,7 +21,7 @@ class Champion extends Model
         return $this->hasMany(Skill::class);
     }
 
-    public function champion_images()
+    public function skins()
     {
         return $this->hasMany(ChampionImage::class);
     }

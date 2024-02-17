@@ -9,6 +9,8 @@ class ChampionImage extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function champion()
     {
         return $this->belongsTo(Champion::class);

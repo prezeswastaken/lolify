@@ -45,6 +45,10 @@ class StoreChampionRequest extends FormRequest
             'r_image_file' => 'required|file',
             'passive_name' => 'required|string',
             'passive_image_file' => 'required|file',
+            'skin_1_image_file' => 'nullable',
+            'skin_2_image_file' => 'nullable',
+            'skin_3_image_file' => 'nullable',
+            'skin_4_image_file' => 'nullable',
         ];
     }
 

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateChampionRequest;
 use App\Models\Champion;
 use App\Repositories\ChampionRepository;
 use App\Repositories\SkillRepository;
+use App\Repositories\SkinRepository;
 
 class ChampionController extends Controller
 {
@@ -35,9 +36,9 @@ class ChampionController extends Controller
      * @bodyParam name string required Example: Yasuo
      * @bodyParam description string Example: The NoobChamp
      */
-    public function store(StoreChampionRequest $request, ChampionRepository $championRepository, SkillRepository $skillRepository)
+    public function store(StoreChampionRequest $request, ChampionRepository $championRepository, SkillRepository $skillRepository, SkinRepository $skinRepository)
     {
-        return $championRepository->create($request, $skillRepository);
+        return $championRepository->create($request, $skillRepository, $skinRepository);
     }
 
     /**

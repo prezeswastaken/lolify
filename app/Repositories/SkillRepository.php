@@ -15,7 +15,7 @@ class SkillRepository
         $extension = '.jpg';
         $fileName = $name.' - '.$champion->name.' - '.strval(time()).$extension;
         $fullPath = 'public/images/skills';
-        $image_link = url('/')."/storage/images/$fileName";
+        $image_link = url('/')."/storage/images/skills/$fileName";
 
         $image_file->storeAs($fullPath, $fileName);
 
