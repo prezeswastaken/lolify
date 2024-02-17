@@ -6,6 +6,7 @@ use App\Http\Requests\StoreChampionRequest;
 use App\Http\Requests\UpdateChampionRequest;
 use App\Models\Champion;
 use App\Repositories\ChampionRepository;
+use App\Repositories\SkillRepository;
 
 class ChampionController extends Controller
 {
@@ -16,7 +17,7 @@ class ChampionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'register', 'show']]);
+        $this->middleware('auth:api', ['except' => ['index', 'register', 'show', 'skills']]);
     }
 
     /**
@@ -34,9 +35,9 @@ class ChampionController extends Controller
      * @bodyParam name string required Example: Yasuo
      * @bodyParam description string Example: The NoobChamp
      */
-    public function store(StoreChampionRequest $request, ChampionRepository $championRepository)
+    public function store(StoreChampionRequest $request, ChampionRepository $championRepository, SkillRepository $skillRepository)
     {
-        return $championRepository->create($request);
+        return $championRepository->create($request, $skillRepository);
     }
 
     /**
@@ -63,5 +64,10 @@ class ChampionController extends Controller
     public function destroy(Champion $champion)
     {
         $champion->delete();
+    }
+
+    public function skills(Champion $champion)
+    {
+        return $champion->skills;
     }
 }

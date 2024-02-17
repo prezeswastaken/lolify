@@ -33,7 +33,7 @@ class StoreChampionRequest extends FormRequest
             'name' => 'string|required|min:2',
             'title' => 'string|nullable',
             'description' => 'string|nullable',
-            'image_file' => 'file',
+            'image_file' => 'file|required',
             'roles' => 'array|required',
             'q_name' => 'required|string',
             'q_image_file' => 'required|file',

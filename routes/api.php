@@ -21,6 +21,8 @@ Route::post('refresh', [App\Http\Controllers\AuthController::class, 'refresh']);
 Route::get('me', [App\Http\Controllers\AuthController::class, 'me']);
 Route::post('register', [App\Http\Controllers\AuthController::class, 'register']);
 
-Route::resource('champion', ChampionController::class);
+Route::get('champion', [ChampionController::class, 'index']);
+Route::post('champion', [ChampionController::class, 'store']);
+Route::get('champion/skills/{champion}', [ChampionController::class, 'skills']);
 
-Route::resource('role', RoleController::class);
+Route::get('role', [RoleController::class, 'index']);
