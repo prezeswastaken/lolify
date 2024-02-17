@@ -35,6 +35,16 @@ class StoreChampionRequest extends FormRequest
             'description' => 'string|nullable',
             'image_file' => 'file',
             'roles' => 'array|required',
+            'q_name' => 'required|string',
+            'q_image_file' => 'required|file',
+            'w_name' => 'required|string',
+            'w_image_file' => 'required|file',
+            'e_name' => 'required|string',
+            'e_image_file' => 'required|file',
+            'r_name' => 'required|string',
+            'r_image_file' => 'required|file',
+            'passive_name' => 'required|string',
+            'passive_image_file' => 'required|file',
         ];
     }
 
