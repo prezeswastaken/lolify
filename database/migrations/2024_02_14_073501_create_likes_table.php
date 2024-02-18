@@ -14,8 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('likes', function (Blueprint $table) {
-            $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Champion::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Champion::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

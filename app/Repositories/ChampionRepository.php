@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Requests\StoreChampionRequest;
 use App\Models\Champion;
+use JWTAuth;
 
 /**
  * Creates champion and returns it
@@ -57,5 +58,21 @@ class ChampionRepository
         }
 
         return $champion;
+    }
+
+    public function like(Champion $champion)
+    {
+        $user = JWTAuth::user();
+
+        // syncWithoutDetaching ensures that user can like a champion only once
+        $user->likes()->syncWithoutDetaching([$champion->id]);
+    }
+
+    public function dislike(Champion $champion)
+    {
+        $user = JWTAuth::user();
+
+        // Remove the association between the user and the champion
+        $user->likes()->detach($champion->id);
     }
 }

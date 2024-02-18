@@ -63,7 +63,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Returns a list of champions liked by the user
      */
-    public function champions()
+    public function likes()
     {
         return $this->belongsToMany(Champion::class, 'likes');
     }

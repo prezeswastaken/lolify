@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreChampionRequest;
 use App\Http\Requests\UpdateChampionRequest;
+use App\Http\Resources\ShowChampionResource;
 use App\Models\Champion;
 use App\Repositories\ChampionRepository;
 use App\Repositories\SkillRepository;
@@ -18,7 +19,7 @@ class ChampionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'register', 'show', 'skills']]);
+        $this->middleware('auth:api', ['except' => ['index', 'register', 'show', 'skills', 'skins', 'roles']]);
     }
 
     /**
@@ -48,7 +49,7 @@ class ChampionController extends Controller
      */
     public function show(Champion $champion)
     {
-        return $champion;
+        return new ShowChampionResource($champion);
     }
 
     /**
@@ -70,5 +71,25 @@ class ChampionController extends Controller
     public function skills(Champion $champion)
     {
         return $champion->skills;
+    }
+
+    public function skins(Champion $champion)
+    {
+        return $champion->skins;
+    }
+
+    public function roles(Champion $champion)
+    {
+        return $champion->roles;
+    }
+
+    public function like(Champion $champion, ChampionRepository $championRepository)
+    {
+        return $championRepository->like($champion);
+    }
+
+    public function dislike(Champion $champion, ChampionRepository $championRepository)
+    {
+        return $championRepository->dislike($champion);
     }
 }

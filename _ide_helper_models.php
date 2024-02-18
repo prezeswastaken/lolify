@@ -21,12 +21,13 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $image_link
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChampionImage> $champion_images
- * @property-read int|null $champion_images_count
+ * @property string|null $title
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $roles
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Skill> $skills
  * @property-read int|null $skills_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChampionImage> $skins
+ * @property-read int|null $skins_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|Champion newModelQuery()
@@ -37,6 +38,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Champion whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Champion whereImageLink($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Champion whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Champion whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Champion whereUpdatedAt($value)
  */
 	class Champion extends \Eloquent {}
@@ -92,11 +94,20 @@ namespace App\Models{
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $name
+ * @property string $letter
+ * @property string $image_link
+ * @property int $champion_id
+ * @property-read \App\Models\Champion|null $champion
  * @method static \Illuminate\Database\Eloquent\Builder|Skill newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Skill newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Skill query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Skill whereChampionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Skill whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Skill whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Skill whereImageLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Skill whereLetter($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Skill whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Skill whereUpdatedAt($value)
  */
 	class Skill extends \Eloquent {}
@@ -115,8 +126,8 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Champion> $champions
- * @property-read int|null $champions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Champion> $likes
+ * @property-read int|null $likes_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens

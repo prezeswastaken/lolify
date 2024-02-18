@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('champion_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Champion::class)->constrained();
+            $table->foreignIdFor(Champion::class)->constrained()->cascadeOnDelete();
             $table->string('image_link');
             $table->timestamps();
         });

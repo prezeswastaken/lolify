@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\ShowUserResource;
 use App\Repositories\UserRepository;
 
 /**
@@ -89,7 +90,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return new ShowUserResource(auth()->user());
     }
 
     /**
