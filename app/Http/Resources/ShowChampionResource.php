@@ -17,6 +17,10 @@ class ShowChampionResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'image_link' => $this->image_link,
+            'description' => $this->description,
+            'title' => $this->title,
+            'current_user_likes_it' => $this->currentUserLikesIt(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'likes_count' => $this->users->count(),

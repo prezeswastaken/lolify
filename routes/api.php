@@ -24,10 +24,15 @@ Route::post('register', [App\Http\Controllers\AuthController::class, 'register']
 Route::get('champion', [ChampionController::class, 'index']);
 Route::post('champion', [ChampionController::class, 'store']);
 Route::get('champion/{champion}', [ChampionController::class, 'show']);
+Route::get('cached/champion', [ChampionController::class, 'full']);
 Route::get('champion/{champion}/skills', [ChampionController::class, 'skills']);
 Route::get('champion/{champion}/skins', [ChampionController::class, 'skins']);
 Route::get('champion/{champion}/roles', [ChampionController::class, 'roles']);
 Route::delete('champion/{champion}', [ChampionController::class, 'destroy']);
+
+Route::get('champion/role/{role}', [ChampionController::class, 'role']);
+
+Route::get('top3/champion', [ChampionController::class, 'top3']);
 
 Route::post('champion/like/{champion}', [ChampionController::class, 'like']);
 Route::post('champion/dislike/{champion}', [ChampionController::class, 'dislike']);

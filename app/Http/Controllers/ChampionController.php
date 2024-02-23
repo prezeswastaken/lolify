@@ -6,6 +6,7 @@ use App\Http\Requests\StoreChampionRequest;
 use App\Http\Requests\UpdateChampionRequest;
 use App\Http\Resources\ShowChampionResource;
 use App\Models\Champion;
+use App\Models\Role;
 use App\Repositories\ChampionRepository;
 use App\Repositories\SkillRepository;
 use App\Repositories\SkinRepository;
@@ -19,7 +20,7 @@ class ChampionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'register', 'show', 'skills', 'skins', 'roles']]);
+        $this->middleware('auth:api', ['except' => ['index', 'full', 'register', 'show', 'skills', 'skins', 'roles', 'role', 'top3']]);
     }
 
     /**
@@ -29,6 +30,12 @@ class ChampionController extends Controller
     public function index()
     {
         return Champion::all();
+    }
+
+    public function full(ChampionRepository $championRepository)
+    {
+        return $championRepository->full();
+        //return Champion::with(['skins'])->get();
     }
 
     /**
@@ -91,5 +98,15 @@ class ChampionController extends Controller
     public function dislike(Champion $champion, ChampionRepository $championRepository)
     {
         return $championRepository->dislike($champion);
+    }
+
+    public function role(Role $role)
+    {
+        return $role->champions;
+    }
+
+    public function top3(ChampionRepository $championRepository)
+    {
+        return $championRepository->top3();
     }
 }

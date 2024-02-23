@@ -22,7 +22,7 @@ class ShowUserResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'champion_likes_count' => $this->likes->count(),
-            'champions_user_likes' => $this->likes,
+            'likes' => $this->likes,
         ];
     }
 }

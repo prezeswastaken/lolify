@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\Http\Requests\StoreChampionRequest;
+use App\Http\Resources\ShowChampionResource;
 use App\Models\Champion;
+use App\Models\User;
 use JWTAuth;
 
 /**
@@ -60,19 +62,54 @@ class ChampionRepository
         return $champion;
     }
 
+    public function full()
+    {
+        $champions = Champion::all();
+
+        $championsFull = $champions->map(fn ($champion) => new ShowChampionResource($champion));
+
+        return $championsFull;
+
+    }
+
+    /**
+     * Adds certain champion to current user's likes
+     */
     public function like(Champion $champion)
     {
         $user = JWTAuth::user();
 
         // syncWithoutDetaching ensures that user can like a champion only once
+        /** @var User $user */
         $user->likes()->syncWithoutDetaching([$champion->id]);
     }
 
     public function dislike(Champion $champion)
     {
+        /**
+         * @var User $user
+         */
         $user = JWTAuth::user();
 
         // Remove the association between the user and the champion
         $user->likes()->detach($champion->id);
+    }
+
+    /**
+     * Returns top 3 most liked champions
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|Champion[]
+     */
+    public function top3()
+    {
+        /**
+         * @var \Illuminate\Database\Eloquent\Collection<Champion>
+         */
+        $topChampions = Champion::withCount('users')
+            ->orderByDesc('users_count')
+            ->limit(3)
+            ->get();
+
+        return $topChampions;
     }
 }
