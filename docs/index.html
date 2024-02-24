@@ -64,6 +64,19 @@
                     <a href="#authenticating-requests">Authenticating requests</a>
                 </li>
                             </ul>
+                    <ul id="tocify-header-admin" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="admin">
+                    <a href="#admin">Admin</a>
+                </li>
+                                    <ul id="tocify-subheader-admin" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="admin-POSTapi-champion">
+                                <a href="#admin-POSTapi-champion">Create new champion</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="admin-DELETEapi-champion--champion_id-">
+                                <a href="#admin-DELETEapi-champion--champion_id-">Delete champion by his id</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-authentication" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="authentication">
                     <a href="#authentication">Authentication</a>
@@ -86,25 +99,31 @@
                             </li>
                                                                         </ul>
                             </ul>
-                    <ul id="tocify-header-endpoints" class="tocify-header">
-                <li class="tocify-item level-1" data-unique="endpoints">
-                    <a href="#endpoints">Endpoints</a>
+                    <ul id="tocify-header-champion" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="champion">
+                    <a href="#champion">Champion</a>
                 </li>
-                                    <ul id="tocify-subheader-endpoints" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-champion">
-                                <a href="#endpoints-GETapi-champion">GET api/champion</a>
+                                    <ul id="tocify-subheader-champion" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="champion-GETapi-champion">
+                                <a href="#champion-GETapi-champion">Get all champions (slim)</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-champion">
-                                <a href="#endpoints-POSTapi-champion">Create new champion</a>
+                                                                                <li class="tocify-item level-2" data-unique="champion-GETapi-cached-champion">
+                                <a href="#champion-GETapi-cached-champion">Get all champions (full)</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-champion--id-">
-                                <a href="#endpoints-GETapi-champion--id-">Get champion by champion id</a>
+                                                                                <li class="tocify-item level-2" data-unique="champion-GETapi-champion--champion_id-">
+                                <a href="#champion-GETapi-champion--champion_id-">Get champion by champion id</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-PUTapi-champion--id-">
-                                <a href="#endpoints-PUTapi-champion--id-">Update the specified resource in storage.</a>
+                                                                                <li class="tocify-item level-2" data-unique="champion-GETapi-champion-role--role_id-">
+                                <a href="#champion-GETapi-champion-role--role_id-">Get champions by role</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-DELETEapi-champion--id-">
-                                <a href="#endpoints-DELETEapi-champion--id-">Remove the specified resource from storage.</a>
+                                                                                <li class="tocify-item level-2" data-unique="champion-GETapi-top3-champion">
+                                <a href="#champion-GETapi-top3-champion">Get top 3 most liked champions</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="champion-POSTapi-champion-like--champion_id-">
+                                <a href="#champion-POSTapi-champion-like--champion_id-">Like a champion</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="champion-POSTapi-champion-dislike--champion_id-">
+                                <a href="#champion-POSTapi-champion-dislike--champion_id-">Dislike a champion</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -117,7 +136,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: February 15, 2024</li>
+        <li>Last updated: February 24, 2024</li>
     </ul>
 </div>
 
@@ -126,7 +145,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost</code>
+    <strong>Base URL</strong>: <code>https://lolify.fly.dev</code>
 </aside>
 <p>This documentation aims to provide all the information you need to work with our API.</p>
 <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
@@ -137,7 +156,622 @@ You can switch the language used with the tabs at the top right (or from the nav
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>JWT token can be accquired by using /api/login endpoint. It returns JWT token that expires in one hour.</p>
 
-        <h1 id="authentication">Authentication</h1>
+        <h1 id="admin">Admin</h1>
+
+    
+
+                                <h2 id="admin-POSTapi-champion">Create new champion</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-champion">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://lolify.fly.dev/api/champion"
+);
+
+const headers = {
+    "Authorization": "Bearer {JWT_ACCESS_TOKEN}",
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+};
+
+const body = new FormData();
+body.append('name', 'Yasuo');
+body.append('title', 'alias');
+body.append('description', 'The NoobChamp');
+body.append('q_name', 'aspernatur');
+body.append('w_name', 'expedita');
+body.append('e_name', 'impedit');
+body.append('r_name', 'qui');
+body.append('passive_name', 'veritatis');
+body.append('image_file', document.querySelector('input[name="image_file"]').files[0]);
+body.append('q_image_file', document.querySelector('input[name="q_image_file"]').files[0]);
+body.append('w_image_file', document.querySelector('input[name="w_image_file"]').files[0]);
+body.append('e_image_file', document.querySelector('input[name="e_image_file"]').files[0]);
+body.append('r_image_file', document.querySelector('input[name="r_image_file"]').files[0]);
+body.append('passive_image_file', document.querySelector('input[name="passive_image_file"]').files[0]);
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://lolify.fly.dev/api/champion" \
+    --header "Authorization: Bearer {JWT_ACCESS_TOKEN}" \
+    --header "Content-Type: multipart/form-data" \
+    --header "Accept: application/json" \
+    --form "name=Yasuo"\
+    --form "title=alias"\
+    --form "description=The NoobChamp"\
+    --form "q_name=aspernatur"\
+    --form "w_name=expedita"\
+    --form "e_name=impedit"\
+    --form "r_name=qui"\
+    --form "passive_name=veritatis"\
+    --form "image_file=@/tmp/phptGuWuw" \
+    --form "q_image_file=@/tmp/phpGZ0Iok" \
+    --form "w_image_file=@/tmp/phpk978mu" \
+    --form "e_image_file=@/tmp/phpILczhZ" \
+    --form "r_image_file=@/tmp/phpxY7bpe" \
+    --form "passive_image_file=@/tmp/phpQO4kDE" </code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'https://lolify.fly.dev/api/champion'
+files = {
+  'name': (None, 'Yasuo'),
+  'title': (None, 'alias'),
+  'description': (None, 'The NoobChamp'),
+  'q_name': (None, 'aspernatur'),
+  'w_name': (None, 'expedita'),
+  'e_name': (None, 'impedit'),
+  'r_name': (None, 'qui'),
+  'passive_name': (None, 'veritatis'),
+  'image_file': open('/tmp/phptGuWuw', 'rb'),
+  'q_image_file': open('/tmp/phpGZ0Iok', 'rb'),
+  'w_image_file': open('/tmp/phpk978mu', 'rb'),
+  'e_image_file': open('/tmp/phpILczhZ', 'rb'),
+  'r_image_file': open('/tmp/phpxY7bpe', 'rb'),
+  'passive_image_file': open('/tmp/phpQO4kDE', 'rb')}
+payload = {
+    "name": "Yasuo",
+    "title": "alias",
+    "description": "The NoobChamp",
+    "roles": [],
+    "q_name": "aspernatur",
+    "w_name": "expedita",
+    "e_name": "impedit",
+    "r_name": "qui",
+    "passive_name": "veritatis"
+}
+headers = {
+  'Authorization': 'Bearer {JWT_ACCESS_TOKEN}',
+  'Content-Type': 'multipart/form-data',
+  'Accept': 'application/json'
+}
+
+response = requests.request('POST', url, headers=headers, files=files)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'https://lolify.fly.dev/api/champion';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer {JWT_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'multipart/form-data',
+            'Accept' =&gt; 'application/json',
+        ],
+        'multipart' =&gt; [
+            [
+                'name' =&gt; 'name',
+                'contents' =&gt; 'Yasuo'
+            ],
+            [
+                'name' =&gt; 'title',
+                'contents' =&gt; 'alias'
+            ],
+            [
+                'name' =&gt; 'description',
+                'contents' =&gt; 'The NoobChamp'
+            ],
+            [
+                'name' =&gt; 'q_name',
+                'contents' =&gt; 'aspernatur'
+            ],
+            [
+                'name' =&gt; 'w_name',
+                'contents' =&gt; 'expedita'
+            ],
+            [
+                'name' =&gt; 'e_name',
+                'contents' =&gt; 'impedit'
+            ],
+            [
+                'name' =&gt; 'r_name',
+                'contents' =&gt; 'qui'
+            ],
+            [
+                'name' =&gt; 'passive_name',
+                'contents' =&gt; 'veritatis'
+            ],
+            [
+                'name' =&gt; 'image_file',
+                'contents' =&gt; fopen('/tmp/phptGuWuw', 'r')
+            ],
+            [
+                'name' =&gt; 'q_image_file',
+                'contents' =&gt; fopen('/tmp/phpGZ0Iok', 'r')
+            ],
+            [
+                'name' =&gt; 'w_image_file',
+                'contents' =&gt; fopen('/tmp/phpk978mu', 'r')
+            ],
+            [
+                'name' =&gt; 'e_image_file',
+                'contents' =&gt; fopen('/tmp/phpILczhZ', 'r')
+            ],
+            [
+                'name' =&gt; 'r_image_file',
+                'contents' =&gt; fopen('/tmp/phpxY7bpe', 'r')
+            ],
+            [
+                'name' =&gt; 'passive_image_file',
+                'contents' =&gt; fopen('/tmp/phpQO4kDE', 'r')
+            ],
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-champion">
+</span>
+<span id="execution-results-POSTapi-champion" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-champion"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-champion"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-champion" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-champion">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-champion" data-method="POST"
+      data-path="api/champion"
+      data-authed="1"
+      data-hasfiles="1"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-champion', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/champion</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-champion"
+               value="Bearer {JWT_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {JWT_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-champion"
+               value="multipart/form-data"
+               data-component="header">
+    <br>
+<p>Example: <code>multipart/form-data</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-champion"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-champion"
+               value="Yasuo"
+               data-component="body">
+    <br>
+<p>Example: <code>Yasuo</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="POSTapi-champion"
+               value="alias"
+               data-component="body">
+    <br>
+<p>Example: <code>alias</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="POSTapi-champion"
+               value="The NoobChamp"
+               data-component="body">
+    <br>
+<p>Example: <code>The NoobChamp</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>image_file</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="image_file"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+<p>Must be a file. Example: <code>/tmp/phptGuWuw</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>roles</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="roles"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>q_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="q_name"                data-endpoint="POSTapi-champion"
+               value="aspernatur"
+               data-component="body">
+    <br>
+<p>Example: <code>aspernatur</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>q_image_file</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="q_image_file"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+<p>Must be a file. Example: <code>/tmp/phpGZ0Iok</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>w_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="w_name"                data-endpoint="POSTapi-champion"
+               value="expedita"
+               data-component="body">
+    <br>
+<p>Example: <code>expedita</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>w_image_file</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="w_image_file"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+<p>Must be a file. Example: <code>/tmp/phpk978mu</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>e_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="e_name"                data-endpoint="POSTapi-champion"
+               value="impedit"
+               data-component="body">
+    <br>
+<p>Example: <code>impedit</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>e_image_file</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="e_image_file"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+<p>Must be a file. Example: <code>/tmp/phpILczhZ</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>r_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="r_name"                data-endpoint="POSTapi-champion"
+               value="qui"
+               data-component="body">
+    <br>
+<p>Example: <code>qui</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>r_image_file</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="r_image_file"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+<p>Must be a file. Example: <code>/tmp/phpxY7bpe</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>passive_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="passive_name"                data-endpoint="POSTapi-champion"
+               value="veritatis"
+               data-component="body">
+    <br>
+<p>Example: <code>veritatis</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>passive_image_file</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="passive_image_file"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+<p>Must be a file. Example: <code>/tmp/phpQO4kDE</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>skin_1_image_file</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="skin_1_image_file"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>skin_2_image_file</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="skin_2_image_file"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>skin_3_image_file</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="skin_3_image_file"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>skin_4_image_file</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="skin_4_image_file"                data-endpoint="POSTapi-champion"
+               value=""
+               data-component="body">
+    <br>
+
+        </div>
+        </form>
+
+                    <h2 id="admin-DELETEapi-champion--champion_id-">Delete champion by his id</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-champion--champion_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://lolify.fly.dev/api/champion/12"
+);
+
+const headers = {
+    "Authorization": "Bearer {JWT_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "https://lolify.fly.dev/api/champion/12" \
+    --header "Authorization: Bearer {JWT_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'https://lolify.fly.dev/api/champion/12'
+headers = {
+  'Authorization': 'Bearer {JWT_ACCESS_TOKEN}',
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('DELETE', url, headers=headers)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'https://lolify.fly.dev/api/champion/12';
+$response = $client-&gt;delete(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer {JWT_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-champion--champion_id-">
+</span>
+<span id="execution-results-DELETEapi-champion--champion_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-champion--champion_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-champion--champion_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-champion--champion_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-champion--champion_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-champion--champion_id-" data-method="DELETE"
+      data-path="api/champion/{champion_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-champion--champion_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/champion/{champion_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-champion--champion_id-"
+               value="Bearer {JWT_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {JWT_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-champion--champion_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-champion--champion_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>champion_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="champion_id"                data-endpoint="DELETEapi-champion--champion_id-"
+               value="12"
+               data-component="url">
+    <br>
+<p>The ID of the champion. Example: <code>12</code></p>
+            </div>
+                    </form>
+
+                <h1 id="authentication">Authentication</h1>
 
     
 
@@ -154,7 +788,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/login"
+    "https://lolify.fly.dev/api/login"
 );
 
 const headers = {
@@ -163,8 +797,8 @@ const headers = {
 };
 
 let body = {
-    "email": "athena13@example.org",
-    "password": "^)~yz@$z,!#9"
+    "email": "michael@scott.com",
+    "password": "littlekidlover69"
 };
 
 fetch(url, {
@@ -176,12 +810,12 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/login" \
+    "https://lolify.fly.dev/api/login" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"athena13@example.org\",
-    \"password\": \"^)~yz@$z,!#9\"
+    \"email\": \"michael@scott.com\",
+    \"password\": \"littlekidlover69\"
 }"
 </code></pre></div>
 
@@ -190,10 +824,10 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost/api/login'
+url = 'https://lolify.fly.dev/api/login'
 payload = {
-    "email": "athena13@example.org",
-    "password": "^)~yz@$z,!#9"
+    "email": "michael@scott.com",
+    "password": "littlekidlover69"
 }
 headers = {
   'Content-Type': 'application/json',
@@ -206,7 +840,7 @@ response.json()</code></pre></div>
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/login';
+$url = 'https://lolify.fly.dev/api/login';
 $response = $client-&gt;post(
     $url,
     [
@@ -215,8 +849,8 @@ $response = $client-&gt;post(
             'Accept' =&gt; 'application/json',
         ],
         'json' =&gt; [
-            'email' =&gt; 'athena13@example.org',
-            'password' =&gt; '^)~yz@$z,!#9',
+            'email' =&gt; 'michael@scott.com',
+            'password' =&gt; 'littlekidlover69',
         ],
     ]
 );
@@ -302,25 +936,25 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                 <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
-<small>required</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-login"
-               value="athena13@example.org"
+               value="michael@scott.com"
                data-component="body">
     <br>
-<p>string User email Example: <code>athena13@example.org</code></p>
+<p>User email Example: <code>michael@scott.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
-<small>required</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-login"
-               value="^)~yz@$z,!#9"
+               value="littlekidlover69"
                data-component="body">
     <br>
-<p>string User password Example: <code>^)~yz@$z,!#9</code></p>
+<p>User password Example: <code>littlekidlover69</code></p>
         </div>
         </form>
 
@@ -338,7 +972,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/logout"
+    "https://lolify.fly.dev/api/logout"
 );
 
 const headers = {
@@ -355,7 +989,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/logout" \
+    "https://lolify.fly.dev/api/logout" \
     --header "Authorization: Bearer {JWT_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -365,7 +999,7 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost/api/logout'
+url = 'https://lolify.fly.dev/api/logout'
 headers = {
   'Authorization': 'Bearer {JWT_ACCESS_TOKEN}',
   'Content-Type': 'application/json',
@@ -378,7 +1012,7 @@ response.json()</code></pre></div>
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/logout';
+$url = 'https://lolify.fly.dev/api/logout';
 $response = $client-&gt;post(
     $url,
     [
@@ -475,7 +1109,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/refresh"
+    "https://lolify.fly.dev/api/refresh"
 );
 
 const headers = {
@@ -492,7 +1126,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/refresh" \
+    "https://lolify.fly.dev/api/refresh" \
     --header "Authorization: Bearer {JWT_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -502,7 +1136,7 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost/api/refresh'
+url = 'https://lolify.fly.dev/api/refresh'
 headers = {
   'Authorization': 'Bearer {JWT_ACCESS_TOKEN}',
   'Content-Type': 'application/json',
@@ -515,7 +1149,7 @@ response.json()</code></pre></div>
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/refresh';
+$url = 'https://lolify.fly.dev/api/refresh';
 $response = $client-&gt;post(
     $url,
     [
@@ -612,7 +1246,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/me"
+    "https://lolify.fly.dev/api/me"
 );
 
 const headers = {
@@ -629,7 +1263,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/me" \
+    --get "https://lolify.fly.dev/api/me" \
     --header "Authorization: Bearer {JWT_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -639,7 +1273,7 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost/api/me'
+url = 'https://lolify.fly.dev/api/me'
 headers = {
   'Authorization': 'Bearer {JWT_ACCESS_TOKEN}',
   'Content-Type': 'application/json',
@@ -652,7 +1286,7 @@ response.json()</code></pre></div>
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/me';
+$url = 'https://lolify.fly.dev/api/me';
 $response = $client-&gt;get(
     $url,
     [
@@ -764,7 +1398,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/register"
+    "https://lolify.fly.dev/api/register"
 );
 
 const headers = {
@@ -773,10 +1407,10 @@ const headers = {
 };
 
 let body = {
-    "email": "delores10@example.org",
-    "name": "repellendus",
-    "password": "-$k1\\iX",
-    "password_confirmation": "perspiciatis"
+    "email": "michael@scott.com",
+    "name": "Michael Scott",
+    "password": "littlekidlover69",
+    "password_confirmation": "littlekidlover69"
 };
 
 fetch(url, {
@@ -788,14 +1422,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/register" \
+    "https://lolify.fly.dev/api/register" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"delores10@example.org\",
-    \"name\": \"repellendus\",
-    \"password\": \"-$k1\\\\iX\",
-    \"password_confirmation\": \"perspiciatis\"
+    \"email\": \"michael@scott.com\",
+    \"name\": \"Michael Scott\",
+    \"password\": \"littlekidlover69\",
+    \"password_confirmation\": \"littlekidlover69\"
 }"
 </code></pre></div>
 
@@ -804,12 +1438,12 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost/api/register'
+url = 'https://lolify.fly.dev/api/register'
 payload = {
-    "email": "delores10@example.org",
-    "name": "repellendus",
-    "password": "-$k1\\iX",
-    "password_confirmation": "perspiciatis"
+    "email": "michael@scott.com",
+    "name": "Michael Scott",
+    "password": "littlekidlover69",
+    "password_confirmation": "littlekidlover69"
 }
 headers = {
   'Content-Type': 'application/json',
@@ -822,7 +1456,7 @@ response.json()</code></pre></div>
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/register';
+$url = 'https://lolify.fly.dev/api/register';
 $response = $client-&gt;post(
     $url,
     [
@@ -831,10 +1465,10 @@ $response = $client-&gt;post(
             'Accept' =&gt; 'application/json',
         ],
         'json' =&gt; [
-            'email' =&gt; 'delores10@example.org',
-            'name' =&gt; 'repellendus',
-            'password' =&gt; '-$k1\\iX',
-            'password_confirmation' =&gt; 'perspiciatis',
+            'email' =&gt; 'michael@scott.com',
+            'name' =&gt; 'Michael Scott',
+            'password' =&gt; 'littlekidlover69',
+            'password_confirmation' =&gt; 'littlekidlover69',
         ],
     ]
 );
@@ -926,60 +1560,60 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                 <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
-<small>required</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-register"
-               value="delores10@example.org"
+               value="michael@scott.com"
                data-component="body">
     <br>
-<p>string User email Example: <code>delores10@example.org</code></p>
+<p>User email Example: <code>michael@scott.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
-<small>required</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-register"
-               value="repellendus"
+               value="Michael Scott"
                data-component="body">
     <br>
-<p>string User name Example: <code>repellendus</code></p>
+<p>User name Example: <code>Michael Scott</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
-<small>required</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-register"
-               value="-$k1\iX"
+               value="littlekidlover69"
                data-component="body">
     <br>
-<p>string User password Example: <code>-$k1\iX</code></p>
+<p>User password Example: <code>littlekidlover69</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
-<small>required</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="password_confirmation"                data-endpoint="POSTapi-register"
-               value="perspiciatis"
+               value="littlekidlover69"
                data-component="body">
     <br>
-<p>string User password confirmtion Example: <code>perspiciatis</code></p>
+<p>User password confirmtion Example: <code>littlekidlover69</code></p>
         </div>
         </form>
 
-                <h1 id="endpoints">Endpoints</h1>
+                <h1 id="champion">Champion</h1>
 
     
 
-                                <h2 id="endpoints-GETapi-champion">GET api/champion</h2>
+                                <h2 id="champion-GETapi-champion">Get all champions (slim)</h2>
 
 <p>
 </p>
 
-
+<p>Displays list of all champions, but without ALL information. Great for dashboard.</p>
 
 <span id="example-requests-GETapi-champion">
 <blockquote>Example request:</blockquote>
@@ -987,7 +1621,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/champion"
+    "https://lolify.fly.dev/api/champion"
 );
 
 const headers = {
@@ -1003,7 +1637,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/champion" \
+    --get "https://lolify.fly.dev/api/champion" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -1012,7 +1646,7 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost/api/champion'
+url = 'https://lolify.fly.dev/api/champion'
 headers = {
   'Content-Type': 'application/json',
   'Accept': 'application/json'
@@ -1024,7 +1658,7 @@ response.json()</code></pre></div>
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/champion';
+$url = 'https://lolify.fly.dev/api/champion';
 $response = $client-&gt;get(
     $url,
     [
@@ -1043,31 +1677,98 @@ print_r(json_decode((string) $body));</code></pre></div>
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-x-ratelimit-limit: 60
-x-ratelimit-remaining: 59
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">[
     {
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Yasuo&quot;,
-        &quot;description&quot;: &quot;Noob champ of the wind&quot;,
-        &quot;created_at&quot;: &quot;2024-02-14T09:40:07.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2024-02-14T09:40:07.000000Z&quot;
+        &quot;id&quot;: 6,
+        &quot;name&quot;: &quot;GALIO&quot;,
+        &quot;description&quot;: &quot;Outside the gleaming city of Demacia, the stone colossus Galio keeps vigilant watch. Built as a bulwark against enemy mages, he often stands motionless for decades until the presence of powerful magic stirs him to life. Once activated, Galio makes the most of his time, savoring the thrill of a fight and the rare honor of defending his countrymen. But his triumphs are always bittersweet, for the magic he destroys is also his source of reanimation, and each victory leaves him dormant once again.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/GALIO - 1708264836.jpg&quot;,
+        &quot;title&quot;: &quot;THE COLOSSUS&quot;
     },
     {
-        &quot;id&quot;: 2,
-        &quot;name&quot;: &quot;Warwick&quot;,
-        &quot;description&quot;: null,
-        &quot;created_at&quot;: &quot;2024-02-14T09:40:27.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2024-02-14T09:40:27.000000Z&quot;
+        &quot;id&quot;: 7,
+        &quot;name&quot;: &quot;AATROX&quot;,
+        &quot;description&quot;: &quot;Once honored defenders of Shurima against the Void, Aatrox and his brethren would eventually become an even greater threat to Runeterra, and were defeated only by cunning mortal sorcery. But after centuries of imprisonment, Aatrox was the first to find freedom once more, corrupting and transforming those foolish enough to try and wield the magical weapon that contained his essence. Now, with stolen flesh, he walks Runeterra in a brutal approximation of his previous form, seeking an apocalyptic and long overdue vengeance.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/AATROX - 1708265146.jpg&quot;,
+        &quot;title&quot;: &quot;THE DARKIN BLADE&quot;
+    },
+    {
+        &quot;id&quot;: 13,
+        &quot;name&quot;: &quot;MISS FORTUNE&quot;,
+        &quot;description&quot;: &quot;A Bilgewater captain famed for her looks but feared for her ruthlessness, Sarah Fortune paints a stark figure among the hardened criminals of the port city. As a child, she witnessed the reaver king Gangplank murder her family&mdash;an act she brutally avenged years later, blowing up his flagship while he was still aboard. Those who underestimate her will face a beguiling and unpredictable opponent&hellip; and, likely, a bullet or two in their guts.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/MISS FORTUNE - 1708287761.jpg&quot;,
+        &quot;title&quot;: &quot;THE BOUNTY HUNTER&quot;
+    },
+    {
+        &quot;id&quot;: 14,
+        &quot;name&quot;: &quot;AKALI&quot;,
+        &quot;description&quot;: &quot;Abandoning the Kinkou Order and her title of the Fist of Shadow, Akali now strikes alone, ready to be the deadly weapon her people need. Though she holds onto all she learned from her master Shen, she has pledged to defend Ionia from its enemies, one kill at a time. Akali may strike in silence, but her message will be heard loud and clear: fear the assassin with no master.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/AKALI - 1708453198.jpg&quot;,
+        &quot;title&quot;: &quot;THE ROGUE ASSASSIN&quot;
+    },
+    {
+        &quot;id&quot;: 15,
+        &quot;name&quot;: &quot;AZIR&quot;,
+        &quot;description&quot;: &quot;Azir was a mortal emperor of Shurima in a far distant age, a proud man who stood at the cusp of immortality. His hubris saw him betrayed and murdered at the moment of his greatest triumph, but now, millennia later, he has been reborn as an Ascended being of immense power. With his buried city risen from the sand, Azir seeks to restore Shurima to its former glory.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/AZIR - 1708453364.jpg&quot;,
+        &quot;title&quot;: &quot;THE EMPEROR OF THE SANDS&quot;
+    },
+    {
+        &quot;id&quot;: 16,
+        &quot;name&quot;: &quot;BRAUM&quot;,
+        &quot;description&quot;: &quot;Blessed with massive biceps and an even bigger heart, Braum is a beloved hero of the Freljord. Every mead hall north of Frostheld toasts his legendary strength, said to have felled a forest of oaks in a single night, and punched an entire mountain into rubble. Bearing an enchanted vault door as his shield, Braum roams the frozen north sporting a mustachioed smile as big as his muscles&mdash;a true friend to all those in need.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/BRAUM - 1708453515.jpg&quot;,
+        &quot;title&quot;: &quot;THE HEART OF THE FRELJORD&quot;
+    },
+    {
+        &quot;id&quot;: 17,
+        &quot;name&quot;: &quot;GRAGAS&quot;,
+        &quot;description&quot;: &quot;Equal parts jolly and imposing, Gragas is a massive, rowdy brewmaster on his own quest for the perfect pint of ale. Hailing from parts unknown, he now searches for rare ingredients among the unblemished wastes of the Freljord, trying each recipe as he goes. Often intoxicated and extremely impulsive, he is legendary for the brawls he starts, which often end in all-night parties and widespread property damage. Any appearance from Gragas must surely foreshadow drinking and destruction&mdash;in that order.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/GRAGAS - 1708453631.jpg&quot;,
+        &quot;title&quot;: &quot;THE RABBLE ROUSER&quot;
+    },
+    {
+        &quot;id&quot;: 21,
+        &quot;name&quot;: &quot;MALPHITE&quot;,
+        &quot;description&quot;: &quot;A massive creature of living stone, Malphite struggles to impose blessed order on a chaotic world. Birthed as a servitor-shard to an otherworldly obelisk known as the Monolith, he used his tremendous elemental strength to maintain and protect his progenitor, but ultimately failed. The only survivor of the destruction that followed, Malphite now endures Runeterra&#039;s soft folk and their fluid temperaments, while struggling to find a new role worthy of the last of his kind.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/MALPHITE - 1708454341.jpg&quot;,
+        &quot;title&quot;: &quot;SHARD OF THE MONOLITH&quot;
+    },
+    {
+        &quot;id&quot;: 22,
+        &quot;name&quot;: &quot;SORAKA&quot;,
+        &quot;description&quot;: &quot;A wanderer from the celestial dimensions beyond Mount Targon, Soraka gave up her immortality to protect the mortal races from their own more violent instincts. She endeavors to spread the virtues of compassion and mercy to everyone she meets&mdash;even healing those who would wish harm upon her. And, for all Soraka has seen of this world&#039;s struggles, she still believes the people of Runeterra have yet to reach their full potential.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/SORAKA - 1708454557.jpg&quot;,
+        &quot;title&quot;: &quot;THE STARCHILD&quot;
+    },
+    {
+        &quot;id&quot;: 23,
+        &quot;name&quot;: &quot;TWITCH&quot;,
+        &quot;description&quot;: &quot;A Zaunite plague rat by birth, but a connoisseur of filth by passion, Twitch is not afraid to get his paws dirty. Aiming a chem-powered crossbow at the gilded heart of Piltover, he has vowed to show those in the city above just how filthy they really&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/TWITCH - 1708454756.jpg&quot;,
+        &quot;title&quot;: &quot;THE PLAGUE RAT&quot;
     }
 ]</code>
  </pre>
@@ -1126,199 +1827,20 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="endpoints-POSTapi-champion">Create new champion</h2>
+                    <h2 id="champion-GETapi-cached-champion">Get all champions (full)</h2>
 
 <p>
-<small class="badge badge-darkred">requires authentication</small>
 </p>
 
+<p>Displays a list of all champions and ALL their available information. Great for caching champion info.</p>
 
-
-<span id="example-requests-POSTapi-champion">
+<span id="example-requests-GETapi-cached-champion">
 <blockquote>Example request:</blockquote>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/champion"
-);
-
-const headers = {
-    "Authorization": "Bearer {JWT_ACCESS_TOKEN}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "name": "Yasuo",
-    "description": "The NoobChamp"
-};
-
-fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre></div>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/champion" \
-    --header "Authorization: Bearer {JWT_ACCESS_TOKEN}" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"name\": \"Yasuo\",
-    \"description\": \"The NoobChamp\"
-}"
-</code></pre></div>
-
-
-<div class="python-example">
-    <pre><code class="language-python">import requests
-import json
-
-url = 'http://localhost/api/champion'
-payload = {
-    "name": "Yasuo",
-    "description": "The NoobChamp"
-}
-headers = {
-  'Authorization': 'Bearer {JWT_ACCESS_TOKEN}',
-  'Content-Type': 'application/json',
-  'Accept': 'application/json'
-}
-
-response = requests.request('POST', url, headers=headers, json=payload)
-response.json()</code></pre></div>
-
-
-<div class="php-example">
-    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/champion';
-$response = $client-&gt;post(
-    $url,
-    [
-        'headers' =&gt; [
-            'Authorization' =&gt; 'Bearer {JWT_ACCESS_TOKEN}',
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
-        ],
-        'json' =&gt; [
-            'name' =&gt; 'Yasuo',
-            'description' =&gt; 'The NoobChamp',
-        ],
-    ]
-);
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre></div>
-
-</span>
-
-<span id="example-responses-POSTapi-champion">
-</span>
-<span id="execution-results-POSTapi-champion" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-POSTapi-champion"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-champion"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-POSTapi-champion" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-champion">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-POSTapi-champion" data-method="POST"
-      data-path="api/champion"
-      data-authed="1"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-champion', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-            </h3>
-            <p>
-            <small class="badge badge-black">POST</small>
-            <b><code>api/champion</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-champion"
-               value="Bearer {JWT_ACCESS_TOKEN}"
-               data-component="header">
-    <br>
-<p>Example: <code>Bearer {JWT_ACCESS_TOKEN}</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="POSTapi-champion"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="POSTapi-champion"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="name"                data-endpoint="POSTapi-champion"
-               value="Yasuo"
-               data-component="body">
-    <br>
-<p>Example: <code>Yasuo</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="text" style="display: none"
-                              name="description"                data-endpoint="POSTapi-champion"
-               value="The NoobChamp"
-               data-component="body">
-    <br>
-<p>Example: <code>The NoobChamp</code></p>
-        </div>
-        </form>
-
-                    <h2 id="endpoints-GETapi-champion--id-">Get champion by champion id</h2>
-
-<p>
-</p>
-
-
-
-<span id="example-requests-GETapi-champion--id-">
-<blockquote>Example request:</blockquote>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/champion/1"
+    "https://lolify.fly.dev/api/cached/champion"
 );
 
 const headers = {
@@ -1334,7 +1856,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/champion/1" \
+    --get "https://lolify.fly.dev/api/cached/champion" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -1343,7 +1865,7 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost/api/champion/1'
+url = 'https://lolify.fly.dev/api/cached/champion'
 headers = {
   'Content-Type': 'application/json',
   'Accept': 'application/json'
@@ -1355,7 +1877,7 @@ response.json()</code></pre></div>
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/champion/1';
+$url = 'https://lolify.fly.dev/api/cached/champion';
 $response = $client-&gt;get(
     $url,
     [
@@ -1370,58 +1892,1313 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 </span>
 
-<span id="example-responses-GETapi-champion--id-">
+<span id="example-responses-GETapi-cached-champion">
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-x-ratelimit-limit: 60
-x-ratelimit-remaining: 58
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
-<code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Yasuo&quot;,
-    &quot;description&quot;: &quot;Noob champ of the wind&quot;,
-    &quot;created_at&quot;: &quot;2024-02-14T09:40:07.000000Z&quot;,
-    &quot;updated_at&quot;: &quot;2024-02-14T09:40:07.000000Z&quot;
-}</code>
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;id&quot;: 6,
+        &quot;name&quot;: &quot;GALIO&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/GALIO - 1708264836.jpg&quot;,
+        &quot;description&quot;: &quot;Outside the gleaming city of Demacia, the stone colossus Galio keeps vigilant watch. Built as a bulwark against enemy mages, he often stands motionless for decades until the presence of powerful magic stirs him to life. Once activated, Galio makes the most of his time, savoring the thrill of a fight and the rare honor of defending his countrymen. But his triumphs are always bittersweet, for the magic he destroys is also his source of reanimation, and each victory leaves him dormant once again.&quot;,
+        &quot;title&quot;: &quot;THE COLOSSUS&quot;,
+        &quot;current_user_likes_it&quot;: false,
+        &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+        &quot;likes_count&quot;: 9,
+        &quot;users_that_liked&quot;: [
+            {
+                &quot;id&quot;: 3,
+                &quot;name&quot;: &quot;testowe123&quot;,
+                &quot;email&quot;: &quot;testowe123@gmail.com&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T21:10:12.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T21:10:12.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;user_id&quot;: 3
+                }
+            },
+            {
+                &quot;id&quot;: 4,
+                &quot;name&quot;: &quot;testdolike&quot;,
+                &quot;email&quot;: &quot;testdolike@gmail&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T21:11:30.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T21:11:30.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;user_id&quot;: 4
+                }
+            },
+            {
+                &quot;id&quot;: 5,
+                &quot;name&quot;: &quot;testowanie&quot;,
+                &quot;email&quot;: &quot;testowanie@xs&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T21:12:29.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T21:12:29.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;user_id&quot;: 5
+                }
+            },
+            {
+                &quot;id&quot;: 6,
+                &quot;name&quot;: &quot;aaaaaaaaaaaaaaaaaaa&quot;,
+                &quot;email&quot;: &quot;aaaaaaaaaaaaaaaaaaa@gmail&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-19T15:52:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-19T15:52:00.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;user_id&quot;: 6
+                }
+            },
+            {
+                &quot;id&quot;: 7,
+                &quot;name&quot;: &quot;testtest&quot;,
+                &quot;email&quot;: &quot;testtest@gmail.com&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-19T16:04:02.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-19T16:04:02.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;user_id&quot;: 7
+                }
+            },
+            {
+                &quot;id&quot;: 9,
+                &quot;name&quot;: &quot;Test&quot;,
+                &quot;email&quot;: &quot;TestTestTestTest@gmail.com&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T16:57:05.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T16:57:05.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;user_id&quot;: 9
+                }
+            },
+            {
+                &quot;id&quot;: 10,
+                &quot;name&quot;: &quot;TESTOWANIE&quot;,
+                &quot;email&quot;: &quot;TESTOWANIE@GMAIL.COM&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T17:10:39.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T17:10:39.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;user_id&quot;: 10
+                }
+            },
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Dominik&quot;,
+                &quot;email&quot;: &quot;Dominik@gmail.com&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;true&quot;,
+                &quot;created_at&quot;: &quot;2024-02-17T17:19:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-17T17:19:33.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;user_id&quot;: 1
+                }
+            },
+            {
+                &quot;id&quot;: 2,
+                &quot;name&quot;: &quot;prezes&quot;,
+                &quot;email&quot;: &quot;kaspej@o2.pl&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;true&quot;,
+                &quot;created_at&quot;: &quot;2024-02-17T17:27:08.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-17T17:27:30.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;user_id&quot;: 2
+                }
+            }
+        ],
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;TOP&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;role_id&quot;: 1
+                }
+            },
+            {
+                &quot;id&quot;: 3,
+                &quot;name&quot;: &quot;MID&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;role_id&quot;: 3
+                }
+            },
+            {
+                &quot;id&quot;: 5,
+                &quot;name&quot;: &quot;SUPPORT&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 6,
+                    &quot;role_id&quot;: 5
+                }
+            }
+        ],
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 21,
+                &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;name&quot;: &quot;Galio fires two windblasts that converge into a large tornado that deals damage over time.&quot;,
+                &quot;letter&quot;: &quot;q&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Galio fires two windblasts that converge into a large tornado that deals damage over time. - GALIO - 1708264836.jpg&quot;,
+                &quot;champion_id&quot;: 6
+            },
+            {
+                &quot;id&quot;: 22,
+                &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;name&quot;: &quot;Galio charges a defensive stance, moving slowly. Upon releasing the charge, Galio will taunt and damage nearby enemies.&quot;,
+                &quot;letter&quot;: &quot;w&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Galio charges a defensive stance, moving slowly. Upon releasing the charge, Galio will taunt and damage nearby enemies. - GALIO - 1708264836.jpg&quot;,
+                &quot;champion_id&quot;: 6
+            },
+            {
+                &quot;id&quot;: 23,
+                &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;name&quot;: &quot;Galio will briefly step back and charge, knocking up the first enemy champion he encounters.&quot;,
+                &quot;letter&quot;: &quot;e&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Galio will briefly step back and charge, knocking up the first enemy champion he encounters. - GALIO - 1708264836.jpg&quot;,
+                &quot;champion_id&quot;: 6
+            },
+            {
+                &quot;id&quot;: 24,
+                &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;name&quot;: &quot;Galio designates an ally&#039;s position as his landing spot, granting all allies in the area a magic shield. After a delay Galio smashes down location, knocking up nearby enemies.&quot;,
+                &quot;letter&quot;: &quot;r&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Galio designates an ally&#039;s position as his landing spot, granting all allies in the area a magic shield. After a delay Galio smashes down location, knocking up nearby enemies. - GALIO - 1708264836.jpg&quot;,
+                &quot;champion_id&quot;: 6
+            },
+            {
+                &quot;id&quot;: 25,
+                &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;name&quot;: &quot;Every few seconds, Galio&#039;s next basic attack deals bonus magic damage in an area.&quot;,
+                &quot;letter&quot;: &quot;passive&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Every few seconds, Galio&#039;s next basic attack deals bonus magic damage in an area. - GALIO - 1708264836.jpg&quot;,
+                &quot;champion_id&quot;: 6
+            }
+        ],
+        &quot;skins&quot;: [
+            {
+                &quot;id&quot;: 12,
+                &quot;champion_id&quot;: 6,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/GALIO - skin 0 - 1708264836.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 13,
+                &quot;champion_id&quot;: 6,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/GALIO - skin 1 - 1708264836.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 14,
+                &quot;champion_id&quot;: 6,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/GALIO - skin 2 - 1708264836.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 7,
+        &quot;name&quot;: &quot;AATROX&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/AATROX - 1708265146.jpg&quot;,
+        &quot;description&quot;: &quot;Once honored defenders of Shurima against the Void, Aatrox and his brethren would eventually become an even greater threat to Runeterra, and were defeated only by cunning mortal sorcery. But after centuries of imprisonment, Aatrox was the first to find freedom once more, corrupting and transforming those foolish enough to try and wield the magical weapon that contained his essence. Now, with stolen flesh, he walks Runeterra in a brutal approximation of his previous form, seeking an apocalyptic and long overdue vengeance.&quot;,
+        &quot;title&quot;: &quot;THE DARKIN BLADE&quot;,
+        &quot;current_user_likes_it&quot;: false,
+        &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+        &quot;likes_count&quot;: 4,
+        &quot;users_that_liked&quot;: [
+            {
+                &quot;id&quot;: 8,
+                &quot;name&quot;: &quot;testtesttesttest&quot;,
+                &quot;email&quot;: &quot;testtest@gmail&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T15:54:01.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T15:54:01.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 7,
+                    &quot;user_id&quot;: 8
+                }
+            },
+            {
+                &quot;id&quot;: 10,
+                &quot;name&quot;: &quot;TESTOWANIE&quot;,
+                &quot;email&quot;: &quot;TESTOWANIE@GMAIL.COM&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T17:10:39.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T17:10:39.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 7,
+                    &quot;user_id&quot;: 10
+                }
+            },
+            {
+                &quot;id&quot;: 9,
+                &quot;name&quot;: &quot;Test&quot;,
+                &quot;email&quot;: &quot;TestTestTestTest@gmail.com&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T16:57:05.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T16:57:05.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 7,
+                    &quot;user_id&quot;: 9
+                }
+            },
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Dominik&quot;,
+                &quot;email&quot;: &quot;Dominik@gmail.com&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;true&quot;,
+                &quot;created_at&quot;: &quot;2024-02-17T17:19:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-17T17:19:33.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 7,
+                    &quot;user_id&quot;: 1
+                }
+            }
+        ],
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;TOP&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 7,
+                    &quot;role_id&quot;: 1
+                }
+            }
+        ],
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 26,
+                &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;name&quot;: &quot;Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.&quot;,
+                &quot;letter&quot;: &quot;q&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect. - AATROX - 1708265146.jpg&quot;,
+                &quot;champion_id&quot;: 7
+            },
+            {
+                &quot;id&quot;: 27,
+                &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;name&quot;: &quot;Aatrox smashes the ground, dealing damage to the first enemy hit. Champions and large monsters have to leave the impact area quickly or they will be dragged to the center and take the damage again.&quot;,
+                &quot;letter&quot;: &quot;w&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Aatrox smashes the ground, dealing damage to the first enemy hit. Champions and large monsters have to leave the impact area quickly or they will be dragged to the center and take the damage again. - AATROX - 1708265146.jpg&quot;,
+                &quot;champion_id&quot;: 7
+            },
+            {
+                &quot;id&quot;: 28,
+                &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;name&quot;: &quot;Passively, Aatrox heals when damaging enemy champions. On activation, he dashes in a direction.&quot;,
+                &quot;letter&quot;: &quot;e&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Passively, Aatrox heals when damaging enemy champions. On activation, he dashes in a direction. - AATROX - 1708265146.jpg&quot;,
+                &quot;champion_id&quot;: 7
+            },
+            {
+                &quot;id&quot;: 29,
+                &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;name&quot;: &quot;Aatrox unleashes his demonic form, fearing nearby enemy minions and gaining attack damage, increased healing, and Move Speed. If he gets a takedown, this effect is extended.&quot;,
+                &quot;letter&quot;: &quot;r&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Aatrox unleashes his demonic form, fearing nearby enemy minions and gaining attack damage, increased healing, and Move Speed. If he gets a takedown, this effect is extended. - AATROX - 1708265146.jpg&quot;,
+                &quot;champion_id&quot;: 7
+            },
+            {
+                &quot;id&quot;: 30,
+                &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;name&quot;: &quot;Periodically, Aatrox&#039;s next basic attack deals bonus physical damage and heals him, based on the target&#039;s max health.&quot;,
+                &quot;letter&quot;: &quot;passive&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Periodically, Aatrox&#039;s next basic attack deals bonus physical damage and heals him, based on the target&#039;s max health. - AATROX - 1708265146.jpg&quot;,
+                &quot;champion_id&quot;: 7
+            }
+        ],
+        &quot;skins&quot;: [
+            {
+                &quot;id&quot;: 15,
+                &quot;champion_id&quot;: 7,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/AATROX - skin 0 - 1708265146.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 16,
+                &quot;champion_id&quot;: 7,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/AATROX - skin 1 - 1708265146.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 17,
+                &quot;champion_id&quot;: 7,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/AATROX - skin 2 - 1708265146.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 13,
+        &quot;name&quot;: &quot;MISS FORTUNE&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/MISS FORTUNE - 1708287761.jpg&quot;,
+        &quot;description&quot;: &quot;A Bilgewater captain famed for her looks but feared for her ruthlessness, Sarah Fortune paints a stark figure among the hardened criminals of the port city. As a child, she witnessed the reaver king Gangplank murder her family&mdash;an act she brutally avenged years later, blowing up his flagship while he was still aboard. Those who underestimate her will face a beguiling and unpredictable opponent&hellip; and, likely, a bullet or two in their guts.&quot;,
+        &quot;title&quot;: &quot;THE BOUNTY HUNTER&quot;,
+        &quot;current_user_likes_it&quot;: false,
+        &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+        &quot;likes_count&quot;: 3,
+        &quot;users_that_liked&quot;: [
+            {
+                &quot;id&quot;: 5,
+                &quot;name&quot;: &quot;testowanie&quot;,
+                &quot;email&quot;: &quot;testowanie@xs&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T21:12:29.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T21:12:29.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 13,
+                    &quot;user_id&quot;: 5
+                }
+            },
+            {
+                &quot;id&quot;: 10,
+                &quot;name&quot;: &quot;TESTOWANIE&quot;,
+                &quot;email&quot;: &quot;TESTOWANIE@GMAIL.COM&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;false&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T17:10:39.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T17:10:39.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 13,
+                    &quot;user_id&quot;: 10
+                }
+            },
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Dominik&quot;,
+                &quot;email&quot;: &quot;Dominik@gmail.com&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;true&quot;,
+                &quot;created_at&quot;: &quot;2024-02-17T17:19:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-17T17:19:33.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 13,
+                    &quot;user_id&quot;: 1
+                }
+            }
+        ],
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 4,
+                &quot;name&quot;: &quot;ADC&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 13,
+                    &quot;role_id&quot;: 4
+                }
+            }
+        ],
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 56,
+                &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;name&quot;: &quot;Miss Fortune fires a bullet at an enemy, damaging them and a target behind them. Both strikes can also apply Love Tap.&quot;,
+                &quot;letter&quot;: &quot;q&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Miss Fortune fires a bullet at an enemy, damaging them and a target behind them. Both strikes can also apply Love Tap. - MISS FORTUNE - 1708287761.jpg&quot;,
+                &quot;champion_id&quot;: 13
+            },
+            {
+                &quot;id&quot;: 57,
+                &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;name&quot;: &quot;Miss Fortune passively gains Move Speed when not attacked. This ability can be activated to grant bonus Attack Speed for a short duration. While it&#039;s on cooldown, Love Taps reduce the remaining cooldown of Strut.&quot;,
+                &quot;letter&quot;: &quot;w&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Miss Fortune passively gains Move Speed when not attacked. This ability can be activated to grant bonus Attack Speed for a short duration. While it&#039;s on cooldown, Love Taps reduce the remaining cooldown of Strut. - MISS FORTUNE - 1708287761.jpg&quot;,
+                &quot;champion_id&quot;: 13
+            },
+            {
+                &quot;id&quot;: 58,
+                &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;name&quot;: &quot;Miss Fortune reveals an area with a flurry of bullets, dealing waves of damage to opponents and slowing them.&quot;,
+                &quot;letter&quot;: &quot;e&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Miss Fortune reveals an area with a flurry of bullets, dealing waves of damage to opponents and slowing them. - MISS FORTUNE - 1708287761.jpg&quot;,
+                &quot;champion_id&quot;: 13
+            },
+            {
+                &quot;id&quot;: 59,
+                &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;name&quot;: &quot;Miss Fortune channels a barrage of bullets into a cone in front of her, dealing large amounts of damage to enemies. Each wave of Bullet Time can critically strike&quot;,
+                &quot;letter&quot;: &quot;r&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Miss Fortune channels a barrage of bullets into a cone in front of her, dealing large amounts of damage to enemies. Each wave of Bullet Time can critically strike - MISS FORTUNE - 1708287761.jpg&quot;,
+                &quot;champion_id&quot;: 13
+            },
+            {
+                &quot;id&quot;: 60,
+                &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;name&quot;: &quot;Miss Fortune deals bonus physical damage whenever she basic attacks a new target.&quot;,
+                &quot;letter&quot;: &quot;passive&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Miss Fortune deals bonus physical damage whenever she basic attacks a new target. - MISS FORTUNE - 1708287761.jpg&quot;,
+                &quot;champion_id&quot;: 13
+            }
+        ],
+        &quot;skins&quot;: [
+            {
+                &quot;id&quot;: 33,
+                &quot;champion_id&quot;: 13,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/MISS FORTUNE - skin 0 - 1708287761.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 34,
+                &quot;champion_id&quot;: 13,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/MISS FORTUNE - skin 1 - 1708287761.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 35,
+                &quot;champion_id&quot;: 13,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/MISS FORTUNE - skin 2 - 1708287761.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 14,
+        &quot;name&quot;: &quot;AKALI&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/AKALI - 1708453198.jpg&quot;,
+        &quot;description&quot;: &quot;Abandoning the Kinkou Order and her title of the Fist of Shadow, Akali now strikes alone, ready to be the deadly weapon her people need. Though she holds onto all she learned from her master Shen, she has pledged to defend Ionia from its enemies, one kill at a time. Akali may strike in silence, but her message will be heard loud and clear: fear the assassin with no master.&quot;,
+        &quot;title&quot;: &quot;THE ROGUE ASSASSIN&quot;,
+        &quot;current_user_likes_it&quot;: false,
+        &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+        &quot;likes_count&quot;: 0,
+        &quot;users_that_liked&quot;: [],
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;TOP&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 14,
+                    &quot;role_id&quot;: 1
+                }
+            },
+            {
+                &quot;id&quot;: 3,
+                &quot;name&quot;: &quot;MID&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 14,
+                    &quot;role_id&quot;: 3
+                }
+            }
+        ],
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 61,
+                &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;name&quot;: &quot;Akali throws out five kunai, dealing damage based on her bonus Attack Damage and Ability Power and slowing.&quot;,
+                &quot;letter&quot;: &quot;q&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Akali throws out five kunai, dealing damage based on her bonus Attack Damage and Ability Power and slowing. - AKALI - 1708453198.jpg&quot;,
+                &quot;champion_id&quot;: 14
+            },
+            {
+                &quot;id&quot;: 62,
+                &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;name&quot;: &quot;Akali drops a cover of smoke and briefly gains Move Speed. While inside the shroud, Akali becomes invisible and unable to be selected by enemy spells and attacks. Attacking or using abilities will briefly reveal her.&quot;,
+                &quot;letter&quot;: &quot;w&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Akali drops a cover of smoke and briefly gains Move Speed. While inside the shroud, Akali becomes invisible and unable to be selected by enemy spells and attacks. Attacking or using abilities will briefly reveal her. - AKALI - 1708453198.jpg&quot;,
+                &quot;champion_id&quot;: 14
+            },
+            {
+                &quot;id&quot;: 63,
+                &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;name&quot;: &quot;Flip backward and fire a shuriken forward, dealing magic damage. The first enemy or smoke cloud hit is marked. Re-cast to dash to the marked target, dealing additional damage.&quot;,
+                &quot;letter&quot;: &quot;e&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Flip backward and fire a shuriken forward, dealing magic damage. The first enemy or smoke cloud hit is marked. Re-cast to dash to the marked target, dealing additional damage. - AKALI - 1708453198.jpg&quot;,
+                &quot;champion_id&quot;: 14
+            },
+            {
+                &quot;id&quot;: 64,
+                &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;name&quot;: &quot;Akali leaps in a direction, damaging enemies she strikes. Re-cast: Akali dashes in a direction, executing all enemies she strikes.&quot;,
+                &quot;letter&quot;: &quot;r&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Akali leaps in a direction, damaging enemies she strikes. Re-cast: Akali dashes in a direction, executing all enemies she strikes. - AKALI - 1708453198.jpg&quot;,
+                &quot;champion_id&quot;: 14
+            },
+            {
+                &quot;id&quot;: 65,
+                &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;name&quot;: &quot;Dealing spell damage to a champion creates a ring of energy around them. Exiting that ring empowers Akali&#039;s next Attack with bonus range and damage.&quot;,
+                &quot;letter&quot;: &quot;passive&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Dealing spell damage to a champion creates a ring of energy around them. Exiting that ring empowers Akali&#039;s next Attack with bonus range and damage. - AKALI - 1708453198.jpg&quot;,
+                &quot;champion_id&quot;: 14
+            }
+        ],
+        &quot;skins&quot;: [
+            {
+                &quot;id&quot;: 36,
+                &quot;champion_id&quot;: 14,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/AKALI - skin 0 - 1708453198.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 37,
+                &quot;champion_id&quot;: 14,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/AKALI - skin 1 - 1708453198.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 38,
+                &quot;champion_id&quot;: 14,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/AKALI - skin 2 - 1708453198.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 15,
+        &quot;name&quot;: &quot;AZIR&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/AZIR - 1708453364.jpg&quot;,
+        &quot;description&quot;: &quot;Azir was a mortal emperor of Shurima in a far distant age, a proud man who stood at the cusp of immortality. His hubris saw him betrayed and murdered at the moment of his greatest triumph, but now, millennia later, he has been reborn as an Ascended being of immense power. With his buried city risen from the sand, Azir seeks to restore Shurima to its former glory.&quot;,
+        &quot;title&quot;: &quot;THE EMPEROR OF THE SANDS&quot;,
+        &quot;current_user_likes_it&quot;: false,
+        &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+        &quot;likes_count&quot;: 0,
+        &quot;users_that_liked&quot;: [],
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;TOP&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 15,
+                    &quot;role_id&quot;: 1
+                }
+            },
+            {
+                &quot;id&quot;: 3,
+                &quot;name&quot;: &quot;MID&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 15,
+                    &quot;role_id&quot;: 3
+                }
+            }
+        ],
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 66,
+                &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;name&quot;: &quot;Azir sends all Sand Soldiers towards a location. Sand Soldiers deal magic damage to enemies they pass through and apply a slow for 1 second.&quot;,
+                &quot;letter&quot;: &quot;q&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Azir sends all Sand Soldiers towards a location. Sand Soldiers deal magic damage to enemies they pass through and apply a slow for 1 second. - AZIR - 1708453364.jpg&quot;,
+                &quot;champion_id&quot;: 15
+            },
+            {
+                &quot;id&quot;: 67,
+                &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;name&quot;: &quot;Azir summons a Sand Soldier to attack nearby targets for him, replacing his basic attack against targets within the soldier&#039;s range. Their attacks deal magic damage to enemies in a line. Arise! also passively grants attack speed to Azir and his Sand Soldiers.&quot;,
+                &quot;letter&quot;: &quot;w&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Azir summons a Sand Soldier to attack nearby targets for him, replacing his basic attack against targets within the soldier&#039;s range. Their attacks deal magic damage to enemies in a line. Arise! also passively grants attack speed to Azir and his Sand Soldiers. - AZIR - 1708453364.jpg&quot;,
+                &quot;champion_id&quot;: 15
+            },
+            {
+                &quot;id&quot;: 68,
+                &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;name&quot;: &quot;Azir shields himself briefly and dashes to one of his Sand Soldiers, damaging enemies. If he hits an enemy champion, he instantly readies a new Sand Soldier for deployment and halts his dash.&quot;,
+                &quot;letter&quot;: &quot;e&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Azir shields himself briefly and dashes to one of his Sand Soldiers, damaging enemies. If he hits an enemy champion, he instantly readies a new Sand Soldier for deployment and halts his dash. - AZIR - 1708453364.jpg&quot;,
+                &quot;champion_id&quot;: 15
+            },
+            {
+                &quot;id&quot;: 69,
+                &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;name&quot;: &quot;Azir summons a wall of soldiers which charge forward, knocking back and damaging enemies.&quot;,
+                &quot;letter&quot;: &quot;r&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Azir summons a wall of soldiers which charge forward, knocking back and damaging enemies. - AZIR - 1708453364.jpg&quot;,
+                &quot;champion_id&quot;: 15
+            },
+            {
+                &quot;id&quot;: 70,
+                &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;name&quot;: &quot;Azir can summon the Disc of the Sun from the ruins of allied or enemy turrets.&quot;,
+                &quot;letter&quot;: &quot;passive&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Azir can summon the Disc of the Sun from the ruins of allied or enemy turrets. - AZIR - 1708453364.jpg&quot;,
+                &quot;champion_id&quot;: 15
+            }
+        ],
+        &quot;skins&quot;: [
+            {
+                &quot;id&quot;: 39,
+                &quot;champion_id&quot;: 15,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/AZIR - skin 0 - 1708453364.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 40,
+                &quot;champion_id&quot;: 15,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/AZIR - skin 1 - 1708453364.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 41,
+                &quot;champion_id&quot;: 15,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/AZIR - skin 2 - 1708453364.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 16,
+        &quot;name&quot;: &quot;BRAUM&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/BRAUM - 1708453515.jpg&quot;,
+        &quot;description&quot;: &quot;Blessed with massive biceps and an even bigger heart, Braum is a beloved hero of the Freljord. Every mead hall north of Frostheld toasts his legendary strength, said to have felled a forest of oaks in a single night, and punched an entire mountain into rubble. Bearing an enchanted vault door as his shield, Braum roams the frozen north sporting a mustachioed smile as big as his muscles&mdash;a true friend to all those in need.&quot;,
+        &quot;title&quot;: &quot;THE HEART OF THE FRELJORD&quot;,
+        &quot;current_user_likes_it&quot;: false,
+        &quot;created_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+        &quot;likes_count&quot;: 0,
+        &quot;users_that_liked&quot;: [],
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 5,
+                &quot;name&quot;: &quot;SUPPORT&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 16,
+                    &quot;role_id&quot;: 5
+                }
+            }
+        ],
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 71,
+                &quot;created_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;name&quot;: &quot;Braum propels freezing ice from his shield, slowing and dealing magic damage. Applies a stack of Concussive Blows.&quot;,
+                &quot;letter&quot;: &quot;q&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Braum propels freezing ice from his shield, slowing and dealing magic damage. Applies a stack of Concussive Blows. - BRAUM - 1708453515.jpg&quot;,
+                &quot;champion_id&quot;: 16
+            },
+            {
+                &quot;id&quot;: 72,
+                &quot;created_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;name&quot;: &quot;Braum leaps to a target allied champion or minion. On arrival, Braum and the ally gain Armor and Magic Resist for a few seconds.&quot;,
+                &quot;letter&quot;: &quot;w&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Braum leaps to a target allied champion or minion. On arrival, Braum and the ally gain Armor and Magic Resist for a few seconds. - BRAUM - 1708453515.jpg&quot;,
+                &quot;champion_id&quot;: 16
+            },
+            {
+                &quot;id&quot;: 73,
+                &quot;created_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;name&quot;: &quot;Braum raises his shield in a direction for several seconds, intercepting all projectiles causing them to hit him and be destroyed. He negates the damage of the first attack completely and reduces the damage of all subsequent attacks from this direction.&quot;,
+                &quot;letter&quot;: &quot;e&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Braum raises his shield in a direction for several seconds, intercepting all projectiles causing them to hit him and be destroyed. He negates the damage of the first attack completely and reduces the damage of all subsequent attacks from this direction. - BRAUM - 1708453515.jpg&quot;,
+                &quot;champion_id&quot;: 16
+            },
+            {
+                &quot;id&quot;: 74,
+                &quot;created_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;name&quot;: &quot;Braum slams the ground, knocking up enemies nearby and in a line in front of him. A fissure is left along the line that slows enemies.&quot;,
+                &quot;letter&quot;: &quot;r&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Braum slams the ground, knocking up enemies nearby and in a line in front of him. A fissure is left along the line that slows enemies. - BRAUM - 1708453515.jpg&quot;,
+                &quot;champion_id&quot;: 16
+            },
+            {
+                &quot;id&quot;: 75,
+                &quot;created_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;name&quot;: &quot;Braum&#039;s basic attacks apply Concussive Blows. Once the first stack is applied, ally basic attacks also stack Concussive Blows. Upon reaching 4 stacks, the target is stunned and takes magic damage. For the next few seconds they cannot receive new stacks, but take bonus magic damage from Braum&#039;s attacks.&quot;,
+                &quot;letter&quot;: &quot;passive&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Braum&#039;s basic attacks apply Concussive Blows. Once the first stack is applied, ally basic attacks also stack Concussive Blows. Upon reaching 4 stacks, the target is stunned and takes magic damage. For the next few seconds they cannot receive new stacks, but take bonus magic damage from Braum&#039;s attacks. - BRAUM - 1708453515.jpg&quot;,
+                &quot;champion_id&quot;: 16
+            }
+        ],
+        &quot;skins&quot;: [
+            {
+                &quot;id&quot;: 42,
+                &quot;champion_id&quot;: 16,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/BRAUM - skin 0 - 1708453515.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 43,
+                &quot;champion_id&quot;: 16,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/BRAUM - skin 1 - 1708453515.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 44,
+                &quot;champion_id&quot;: 16,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/BRAUM - skin 2 - 1708453515.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:25:15.000000Z&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 17,
+        &quot;name&quot;: &quot;GRAGAS&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/GRAGAS - 1708453631.jpg&quot;,
+        &quot;description&quot;: &quot;Equal parts jolly and imposing, Gragas is a massive, rowdy brewmaster on his own quest for the perfect pint of ale. Hailing from parts unknown, he now searches for rare ingredients among the unblemished wastes of the Freljord, trying each recipe as he goes. Often intoxicated and extremely impulsive, he is legendary for the brawls he starts, which often end in all-night parties and widespread property damage. Any appearance from Gragas must surely foreshadow drinking and destruction&mdash;in that order.&quot;,
+        &quot;title&quot;: &quot;THE RABBLE ROUSER&quot;,
+        &quot;current_user_likes_it&quot;: false,
+        &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+        &quot;likes_count&quot;: 1,
+        &quot;users_that_liked&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Dominik&quot;,
+                &quot;email&quot;: &quot;Dominik@gmail.com&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;true&quot;,
+                &quot;created_at&quot;: &quot;2024-02-17T17:19:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-17T17:19:33.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 17,
+                    &quot;user_id&quot;: 1
+                }
+            }
+        ],
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;TOP&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 17,
+                    &quot;role_id&quot;: 1
+                }
+            },
+            {
+                &quot;id&quot;: 2,
+                &quot;name&quot;: &quot;JUNGLE&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 17,
+                    &quot;role_id&quot;: 2
+                }
+            },
+            {
+                &quot;id&quot;: 3,
+                &quot;name&quot;: &quot;MID&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 17,
+                    &quot;role_id&quot;: 3
+                }
+            },
+            {
+                &quot;id&quot;: 5,
+                &quot;name&quot;: &quot;SUPPORT&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 17,
+                    &quot;role_id&quot;: 5
+                }
+            }
+        ],
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 76,
+                &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;name&quot;: &quot;Gragas rolls his cask to a location, which can be activated to explode or will explode on its own after 4 seconds. The potency of the explosion increases over time. Enemies struck by the blast have their Move Speed slowed.&quot;,
+                &quot;letter&quot;: &quot;q&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Gragas rolls his cask to a location, which can be activated to explode or will explode on its own after 4 seconds. The potency of the explosion increases over time. Enemies struck by the blast have their Move Speed slowed. - GRAGAS - 1708453631.jpg&quot;,
+                &quot;champion_id&quot;: 17
+            },
+            {
+                &quot;id&quot;: 77,
+                &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;name&quot;: &quot;Gragas guzzles down brew from his cask for 1 second. After finishing, he becomes drunkenly empowered, dealing magic damage to all nearby enemies on his next basic attack and reducing damage received.&quot;,
+                &quot;letter&quot;: &quot;w&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Gragas guzzles down brew from his cask for 1 second. After finishing, he becomes drunkenly empowered, dealing magic damage to all nearby enemies on his next basic attack and reducing damage received. - GRAGAS - 1708453631.jpg&quot;,
+                &quot;champion_id&quot;: 17
+            },
+            {
+                &quot;id&quot;: 78,
+                &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;name&quot;: &quot;Gragas charges to a location and collides with the first enemy unit he comes across, dealing damage to all nearby enemy units and stunning them.&quot;,
+                &quot;letter&quot;: &quot;e&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Gragas charges to a location and collides with the first enemy unit he comes across, dealing damage to all nearby enemy units and stunning them. - GRAGAS - 1708453631.jpg&quot;,
+                &quot;champion_id&quot;: 17
+            },
+            {
+                &quot;id&quot;: 79,
+                &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;name&quot;: &quot;Gragas hurls his cask to a location, dealing damage and knocking back enemies caught in the blast radius.&quot;,
+                &quot;letter&quot;: &quot;r&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Gragas hurls his cask to a location, dealing damage and knocking back enemies caught in the blast radius. - GRAGAS - 1708453631.jpg&quot;,
+                &quot;champion_id&quot;: 17
+            },
+            {
+                &quot;id&quot;: 80,
+                &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;name&quot;: &quot;Gragas periodically heals upon using a skill.&quot;,
+                &quot;letter&quot;: &quot;passive&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Gragas periodically heals upon using a skill. - GRAGAS - 1708453631.jpg&quot;,
+                &quot;champion_id&quot;: 17
+            }
+        ],
+        &quot;skins&quot;: [
+            {
+                &quot;id&quot;: 45,
+                &quot;champion_id&quot;: 17,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/GRAGAS - skin 0 - 1708453631.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 46,
+                &quot;champion_id&quot;: 17,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/GRAGAS - skin 1 - 1708453631.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 47,
+                &quot;champion_id&quot;: 17,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/GRAGAS - skin 2 - 1708453631.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 21,
+        &quot;name&quot;: &quot;MALPHITE&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/MALPHITE - 1708454341.jpg&quot;,
+        &quot;description&quot;: &quot;A massive creature of living stone, Malphite struggles to impose blessed order on a chaotic world. Birthed as a servitor-shard to an otherworldly obelisk known as the Monolith, he used his tremendous elemental strength to maintain and protect his progenitor, but ultimately failed. The only survivor of the destruction that followed, Malphite now endures Runeterra&#039;s soft folk and their fluid temperaments, while struggling to find a new role worthy of the last of his kind.&quot;,
+        &quot;title&quot;: &quot;SHARD OF THE MONOLITH&quot;,
+        &quot;current_user_likes_it&quot;: false,
+        &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+        &quot;likes_count&quot;: 1,
+        &quot;users_that_liked&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Dominik&quot;,
+                &quot;email&quot;: &quot;Dominik@gmail.com&quot;,
+                &quot;email_verified_at&quot;: null,
+                &quot;is_admin&quot;: &quot;true&quot;,
+                &quot;created_at&quot;: &quot;2024-02-17T17:19:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-17T17:19:33.000000Z&quot;,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 21,
+                    &quot;user_id&quot;: 1
+                }
+            }
+        ],
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;TOP&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 21,
+                    &quot;role_id&quot;: 1
+                }
+            },
+            {
+                &quot;id&quot;: 3,
+                &quot;name&quot;: &quot;MID&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 21,
+                    &quot;role_id&quot;: 3
+                }
+            }
+        ],
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 96,
+                &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;name&quot;: &quot;Malphite sends a shard of the earth through the ground at his foe, dealing damage upon impact and stealing Move Speed for 3 seconds.&quot;,
+                &quot;letter&quot;: &quot;q&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Malphite sends a shard of the earth through the ground at his foe, dealing damage upon impact and stealing Move Speed for 3 seconds. - MALPHITE - 1708454341.jpg&quot;,
+                &quot;champion_id&quot;: 21
+            },
+            {
+                &quot;id&quot;: 97,
+                &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;name&quot;: &quot;Malphite attacks with such force that it creates a sonic boom. For the next few seconds, his attacks create aftershocks in front of him.&quot;,
+                &quot;letter&quot;: &quot;w&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Malphite attacks with such force that it creates a sonic boom. For the next few seconds, his attacks create aftershocks in front of him. - MALPHITE - 1708454341.jpg&quot;,
+                &quot;champion_id&quot;: 21
+            },
+            {
+                &quot;id&quot;: 98,
+                &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;name&quot;: &quot;Malphite slams the ground, sending out a shockwave that deals magic damage based on his Armor and reduces the Attack Speed of enemies for a short duration.&quot;,
+                &quot;letter&quot;: &quot;e&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Malphite slams the ground, sending out a shockwave that deals magic damage based on his Armor and reduces the Attack Speed of enemies for a short duration. - MALPHITE - 1708454341.jpg&quot;,
+                &quot;champion_id&quot;: 21
+            },
+            {
+                &quot;id&quot;: 99,
+                &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;name&quot;: &quot;Malphite launches himself to a location at high speed, damaging enemies and knocking them into the air.&quot;,
+                &quot;letter&quot;: &quot;r&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Malphite launches himself to a location at high speed, damaging enemies and knocking them into the air. - MALPHITE - 1708454341.jpg&quot;,
+                &quot;champion_id&quot;: 21
+            },
+            {
+                &quot;id&quot;: 100,
+                &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;name&quot;: &quot;Malphite is shielded by a layer of rock which absorbs damage up to 10% of his maximum Health. If Malphite has not been hit for a few seconds, this effect recharges.&quot;,
+                &quot;letter&quot;: &quot;passive&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Malphite is shielded by a layer of rock which absorbs damage up to 10% of his maximum Health. If Malphite has not been hit for a few seconds, this effect recharges. - MALPHITE - 1708454341.jpg&quot;,
+                &quot;champion_id&quot;: 21
+            }
+        ],
+        &quot;skins&quot;: [
+            {
+                &quot;id&quot;: 55,
+                &quot;champion_id&quot;: 21,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/MALPHITE - skin 0 - 1708454341.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 56,
+                &quot;champion_id&quot;: 21,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/MALPHITE - skin 1 - 1708454341.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 57,
+                &quot;champion_id&quot;: 21,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/MALPHITE - skin 2 - 1708454341.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 22,
+        &quot;name&quot;: &quot;SORAKA&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/SORAKA - 1708454557.jpg&quot;,
+        &quot;description&quot;: &quot;A wanderer from the celestial dimensions beyond Mount Targon, Soraka gave up her immortality to protect the mortal races from their own more violent instincts. She endeavors to spread the virtues of compassion and mercy to everyone she meets&mdash;even healing those who would wish harm upon her. And, for all Soraka has seen of this world&#039;s struggles, she still believes the people of Runeterra have yet to reach their full potential.&quot;,
+        &quot;title&quot;: &quot;THE STARCHILD&quot;,
+        &quot;current_user_likes_it&quot;: false,
+        &quot;created_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+        &quot;likes_count&quot;: 0,
+        &quot;users_that_liked&quot;: [],
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 5,
+                &quot;name&quot;: &quot;SUPPORT&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 22,
+                    &quot;role_id&quot;: 5
+                }
+            }
+        ],
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 101,
+                &quot;created_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;name&quot;: &quot;A star falls from the sky at the target location dealing magic damage and slowing enemies. If an enemy champion is hit by Starcall, Soraka recovers Health.&quot;,
+                &quot;letter&quot;: &quot;q&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/A star falls from the sky at the target location dealing magic damage and slowing enemies. If an enemy champion is hit by Starcall, Soraka recovers Health. - SORAKA - 1708454557.jpg&quot;,
+                &quot;champion_id&quot;: 22
+            },
+            {
+                &quot;id&quot;: 102,
+                &quot;created_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;name&quot;: &quot;Soraka sacrifices a portion of her own health to heal another friendly champion.&quot;,
+                &quot;letter&quot;: &quot;w&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Soraka sacrifices a portion of her own health to heal another friendly champion. - SORAKA - 1708454557.jpg&quot;,
+                &quot;champion_id&quot;: 22
+            },
+            {
+                &quot;id&quot;: 103,
+                &quot;created_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;name&quot;: &quot;Creates a zone at a location that silences all enemies inside. When the zone expires, all enemies still inside are rooted.&quot;,
+                &quot;letter&quot;: &quot;e&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Creates a zone at a location that silences all enemies inside. When the zone expires, all enemies still inside are rooted. - SORAKA - 1708454557.jpg&quot;,
+                &quot;champion_id&quot;: 22
+            },
+            {
+                &quot;id&quot;: 104,
+                &quot;created_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;name&quot;: &quot;Soraka fills her allies with hope, instantly restoring health to herself and all allied champions.&quot;,
+                &quot;letter&quot;: &quot;r&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Soraka fills her allies with hope, instantly restoring health to herself and all allied champions. - SORAKA - 1708454557.jpg&quot;,
+                &quot;champion_id&quot;: 22
+            },
+            {
+                &quot;id&quot;: 105,
+                &quot;created_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;name&quot;: &quot;Soraka runs faster towards nearby low health allies.&quot;,
+                &quot;letter&quot;: &quot;passive&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Soraka runs faster towards nearby low health allies. - SORAKA - 1708454557.jpg&quot;,
+                &quot;champion_id&quot;: 22
+            }
+        ],
+        &quot;skins&quot;: [
+            {
+                &quot;id&quot;: 58,
+                &quot;champion_id&quot;: 22,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/SORAKA - skin 0 - 1708454557.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 59,
+                &quot;champion_id&quot;: 22,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/SORAKA - skin 1 - 1708454557.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 60,
+                &quot;champion_id&quot;: 22,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/SORAKA - skin 2 - 1708454557.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:42:37.000000Z&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 23,
+        &quot;name&quot;: &quot;TWITCH&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/TWITCH - 1708454756.jpg&quot;,
+        &quot;description&quot;: &quot;A Zaunite plague rat by birth, but a connoisseur of filth by passion, Twitch is not afraid to get his paws dirty. Aiming a chem-powered crossbow at the gilded heart of Piltover, he has vowed to show those in the city above just how filthy they really&quot;,
+        &quot;title&quot;: &quot;THE PLAGUE RAT&quot;,
+        &quot;current_user_likes_it&quot;: false,
+        &quot;created_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+        &quot;likes_count&quot;: 0,
+        &quot;users_that_liked&quot;: [],
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 2,
+                &quot;name&quot;: &quot;JUNGLE&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 23,
+                    &quot;role_id&quot;: 2
+                }
+            },
+            {
+                &quot;id&quot;: 4,
+                &quot;name&quot;: &quot;ADC&quot;,
+                &quot;created_at&quot;: null,
+                &quot;updated_at&quot;: null,
+                &quot;pivot&quot;: {
+                    &quot;champion_id&quot;: 23,
+                    &quot;role_id&quot;: 4
+                }
+            }
+        ],
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 106,
+                &quot;created_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;name&quot;: &quot;Twitch becomes Camouflaged for a short duration and gains Move Speed. When leaving Camouflage, Twitch gains Attack Speed for a short duration. When an enemy champion with Deadly Venom dies, Ambush&#039;s cooldown is reset.&quot;,
+                &quot;letter&quot;: &quot;q&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Twitch becomes Camouflaged for a short duration and gains Move Speed. When leaving Camouflage, Twitch gains Attack Speed for a short duration. When an enemy champion with Deadly Venom dies, Ambush&#039;s cooldown is reset. - TWITCH - 1708454756.jpg&quot;,
+                &quot;champion_id&quot;: 23
+            },
+            {
+                &quot;id&quot;: 107,
+                &quot;created_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;name&quot;: &quot;Twitch hurls a cask of venom that explodes in an area, slowing targets and applying deadly venom to the target.&quot;,
+                &quot;letter&quot;: &quot;w&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Twitch hurls a cask of venom that explodes in an area, slowing targets and applying deadly venom to the target. - TWITCH - 1708454756.jpg&quot;,
+                &quot;champion_id&quot;: 23
+            },
+            {
+                &quot;id&quot;: 108,
+                &quot;created_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;name&quot;: &quot;Twitch wreaks further havoc on poisoned enemies with a blast of his vile diseases.&quot;,
+                &quot;letter&quot;: &quot;e&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Twitch wreaks further havoc on poisoned enemies with a blast of his vile diseases. - TWITCH - 1708454756.jpg&quot;,
+                &quot;champion_id&quot;: 23
+            },
+            {
+                &quot;id&quot;: 109,
+                &quot;created_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;name&quot;: &quot;Twitch becomes Camouflaged for a short duration and gains Move Speed. When leaving Camouflage, Twitch gains Attack Speed for a short duration. When an enemy champion with Deadly Venom dies, Ambush&#039;s cooldown is reset.&quot;,
+                &quot;letter&quot;: &quot;r&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Twitch becomes Camouflaged for a short duration and gains Move Speed. When leaving Camouflage, Twitch gains Attack Speed for a short duration. When an enemy champion with Deadly Venom dies, Ambush&#039;s cooldown is reset. - TWITCH - 1708454756.jpg&quot;,
+                &quot;champion_id&quot;: 23
+            },
+            {
+                &quot;id&quot;: 110,
+                &quot;created_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;name&quot;: &quot;Twitch unleashes the full power of his crossbow, shooting bolts over a great distance that pierce all enemies caught in their path.&quot;,
+                &quot;letter&quot;: &quot;passive&quot;,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Twitch unleashes the full power of his crossbow, shooting bolts over a great distance that pierce all enemies caught in their path. - TWITCH - 1708454756.jpg&quot;,
+                &quot;champion_id&quot;: 23
+            }
+        ],
+        &quot;skins&quot;: [
+            {
+                &quot;id&quot;: 61,
+                &quot;champion_id&quot;: 23,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/TWITCH - skin 0 - 1708454756.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 62,
+                &quot;champion_id&quot;: 23,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/TWITCH - skin 1 - 1708454756.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 63,
+                &quot;champion_id&quot;: 23,
+                &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/TWITCH - skin 2 - 1708454756.jpg&quot;,
+                &quot;created_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2024-02-20T18:45:56.000000Z&quot;
+            }
+        ]
+    }
+]</code>
  </pre>
     </span>
-<span id="execution-results-GETapi-champion--id-" hidden>
+<span id="execution-results-GETapi-cached-champion" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-GETapi-champion--id-"></span>:
+                id="execution-response-status-GETapi-cached-champion"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-champion--id-"
+    <pre class="json"><code id="execution-response-content-GETapi-cached-champion"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-GETapi-champion--id-" hidden>
+<span id="execution-error-GETapi-cached-champion" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-champion--id-">
+    <pre><code id="execution-error-message-GETapi-cached-champion">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-GETapi-champion--id-" data-method="GET"
-      data-path="api/champion/{id}"
+<form id="form-GETapi-cached-champion" data-method="GET"
+      data-path="api/cached/champion"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-champion--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-cached-champion', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
             </h3>
             <p>
             <small class="badge badge-green">GET</small>
-            <b><code>api/champion/{id}</code></b>
+            <b><code>api/cached/champion</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -1429,7 +3206,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-champion--id-"
+                              name="Content-Type"                data-endpoint="GETapi-cached-champion"
                value="application/json"
                data-component="header">
     <br>
@@ -1440,7 +3217,268 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-champion--id-"
+                              name="Accept"                data-endpoint="GETapi-cached-champion"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="champion-GETapi-champion--champion_id-">Get champion by champion id</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-champion--champion_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://lolify.fly.dev/api/champion/13"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://lolify.fly.dev/api/champion/13" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'https://lolify.fly.dev/api/champion/13'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('GET', url, headers=headers)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'https://lolify.fly.dev/api/champion/13';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-champion--champion_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;id&quot;: 13,
+    &quot;name&quot;: &quot;MISS FORTUNE&quot;,
+    &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/MISS FORTUNE - 1708287761.jpg&quot;,
+    &quot;description&quot;: &quot;A Bilgewater captain famed for her looks but feared for her ruthlessness, Sarah Fortune paints a stark figure among the hardened criminals of the port city. As a child, she witnessed the reaver king Gangplank murder her family&mdash;an act she brutally avenged years later, blowing up his flagship while he was still aboard. Those who underestimate her will face a beguiling and unpredictable opponent&hellip; and, likely, a bullet or two in their guts.&quot;,
+    &quot;title&quot;: &quot;THE BOUNTY HUNTER&quot;,
+    &quot;current_user_likes_it&quot;: false,
+    &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+    &quot;likes_count&quot;: 3,
+    &quot;users_that_liked&quot;: [
+        {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;testowanie&quot;,
+            &quot;email&quot;: &quot;testowanie@xs&quot;,
+            &quot;email_verified_at&quot;: null,
+            &quot;is_admin&quot;: &quot;false&quot;,
+            &quot;created_at&quot;: &quot;2024-02-18T21:12:29.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-18T21:12:29.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;champion_id&quot;: 13,
+                &quot;user_id&quot;: 5
+            }
+        },
+        {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;TESTOWANIE&quot;,
+            &quot;email&quot;: &quot;TESTOWANIE@GMAIL.COM&quot;,
+            &quot;email_verified_at&quot;: null,
+            &quot;is_admin&quot;: &quot;false&quot;,
+            &quot;created_at&quot;: &quot;2024-02-20T17:10:39.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-20T17:10:39.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;champion_id&quot;: 13,
+                &quot;user_id&quot;: 10
+            }
+        },
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Dominik&quot;,
+            &quot;email&quot;: &quot;Dominik@gmail.com&quot;,
+            &quot;email_verified_at&quot;: null,
+            &quot;is_admin&quot;: &quot;true&quot;,
+            &quot;created_at&quot;: &quot;2024-02-17T17:19:00.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-17T17:19:33.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;champion_id&quot;: 13,
+                &quot;user_id&quot;: 1
+            }
+        }
+    ],
+    &quot;roles&quot;: [
+        {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;ADC&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null,
+            &quot;pivot&quot;: {
+                &quot;champion_id&quot;: 13,
+                &quot;role_id&quot;: 4
+            }
+        }
+    ],
+    &quot;skills&quot;: [
+        {
+            &quot;id&quot;: 56,
+            &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;name&quot;: &quot;Miss Fortune fires a bullet at an enemy, damaging them and a target behind them. Both strikes can also apply Love Tap.&quot;,
+            &quot;letter&quot;: &quot;q&quot;,
+            &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Miss Fortune fires a bullet at an enemy, damaging them and a target behind them. Both strikes can also apply Love Tap. - MISS FORTUNE - 1708287761.jpg&quot;,
+            &quot;champion_id&quot;: 13
+        },
+        {
+            &quot;id&quot;: 57,
+            &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;name&quot;: &quot;Miss Fortune passively gains Move Speed when not attacked. This ability can be activated to grant bonus Attack Speed for a short duration. While it&#039;s on cooldown, Love Taps reduce the remaining cooldown of Strut.&quot;,
+            &quot;letter&quot;: &quot;w&quot;,
+            &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Miss Fortune passively gains Move Speed when not attacked. This ability can be activated to grant bonus Attack Speed for a short duration. While it&#039;s on cooldown, Love Taps reduce the remaining cooldown of Strut. - MISS FORTUNE - 1708287761.jpg&quot;,
+            &quot;champion_id&quot;: 13
+        },
+        {
+            &quot;id&quot;: 58,
+            &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;name&quot;: &quot;Miss Fortune reveals an area with a flurry of bullets, dealing waves of damage to opponents and slowing them.&quot;,
+            &quot;letter&quot;: &quot;e&quot;,
+            &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Miss Fortune reveals an area with a flurry of bullets, dealing waves of damage to opponents and slowing them. - MISS FORTUNE - 1708287761.jpg&quot;,
+            &quot;champion_id&quot;: 13
+        },
+        {
+            &quot;id&quot;: 59,
+            &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;name&quot;: &quot;Miss Fortune channels a barrage of bullets into a cone in front of her, dealing large amounts of damage to enemies. Each wave of Bullet Time can critically strike&quot;,
+            &quot;letter&quot;: &quot;r&quot;,
+            &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Miss Fortune channels a barrage of bullets into a cone in front of her, dealing large amounts of damage to enemies. Each wave of Bullet Time can critically strike - MISS FORTUNE - 1708287761.jpg&quot;,
+            &quot;champion_id&quot;: 13
+        },
+        {
+            &quot;id&quot;: 60,
+            &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;name&quot;: &quot;Miss Fortune deals bonus physical damage whenever she basic attacks a new target.&quot;,
+            &quot;letter&quot;: &quot;passive&quot;,
+            &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skills/Miss Fortune deals bonus physical damage whenever she basic attacks a new target. - MISS FORTUNE - 1708287761.jpg&quot;,
+            &quot;champion_id&quot;: 13
+        }
+    ],
+    &quot;skins&quot;: [
+        {
+            &quot;id&quot;: 33,
+            &quot;champion_id&quot;: 13,
+            &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/MISS FORTUNE - skin 0 - 1708287761.jpg&quot;,
+            &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 34,
+            &quot;champion_id&quot;: 13,
+            &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/MISS FORTUNE - skin 1 - 1708287761.jpg&quot;,
+            &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 35,
+            &quot;champion_id&quot;: 13,
+            &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/skins/MISS FORTUNE - skin 2 - 1708287761.jpg&quot;,
+            &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-champion--champion_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-champion--champion_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-champion--champion_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-champion--champion_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-champion--champion_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-champion--champion_id-" data-method="GET"
+      data-path="api/champion/{champion_id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-champion--champion_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/champion/{champion_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-champion--champion_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-champion--champion_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -1448,33 +3486,412 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+                <b style="line-height: 2;"><code>champion_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="id"                data-endpoint="GETapi-champion--id-"
-               value="1"
+               step="any"               name="champion_id"                data-endpoint="GETapi-champion--champion_id-"
+               value="13"
                data-component="url">
     <br>
-<p>The ID of the champion. Example: <code>1</code></p>
+<p>ID of the champion to show. Example: <code>13</code></p>
             </div>
                     </form>
 
-                    <h2 id="endpoints-PUTapi-champion--id-">Update the specified resource in storage.</h2>
+                    <h2 id="champion-GETapi-champion-role--role_id-">Get champions by role</h2>
 
 <p>
-<small class="badge badge-darkred">requires authentication</small>
 </p>
 
+<p>Displays a list of all champions with the given role id</p>
 
-
-<span id="example-requests-PUTapi-champion--id-">
+<span id="example-requests-GETapi-champion-role--role_id-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/champion/1"
+    "https://lolify.fly.dev/api/champion/role/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://lolify.fly.dev/api/champion/role/1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'https://lolify.fly.dev/api/champion/role/1'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('GET', url, headers=headers)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'https://lolify.fly.dev/api/champion/role/1';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-champion-role--role_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;id&quot;: 6,
+        &quot;name&quot;: &quot;GALIO&quot;,
+        &quot;description&quot;: &quot;Outside the gleaming city of Demacia, the stone colossus Galio keeps vigilant watch. Built as a bulwark against enemy mages, he often stands motionless for decades until the presence of powerful magic stirs him to life. Once activated, Galio makes the most of his time, savoring the thrill of a fight and the rare honor of defending his countrymen. But his triumphs are always bittersweet, for the magic he destroys is also his source of reanimation, and each victory leaves him dormant once again.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/GALIO - 1708264836.jpg&quot;,
+        &quot;title&quot;: &quot;THE COLOSSUS&quot;,
+        &quot;pivot&quot;: {
+            &quot;role_id&quot;: 1,
+            &quot;champion_id&quot;: 6
+        }
+    },
+    {
+        &quot;id&quot;: 7,
+        &quot;name&quot;: &quot;AATROX&quot;,
+        &quot;description&quot;: &quot;Once honored defenders of Shurima against the Void, Aatrox and his brethren would eventually become an even greater threat to Runeterra, and were defeated only by cunning mortal sorcery. But after centuries of imprisonment, Aatrox was the first to find freedom once more, corrupting and transforming those foolish enough to try and wield the magical weapon that contained his essence. Now, with stolen flesh, he walks Runeterra in a brutal approximation of his previous form, seeking an apocalyptic and long overdue vengeance.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/AATROX - 1708265146.jpg&quot;,
+        &quot;title&quot;: &quot;THE DARKIN BLADE&quot;,
+        &quot;pivot&quot;: {
+            &quot;role_id&quot;: 1,
+            &quot;champion_id&quot;: 7
+        }
+    },
+    {
+        &quot;id&quot;: 14,
+        &quot;name&quot;: &quot;AKALI&quot;,
+        &quot;description&quot;: &quot;Abandoning the Kinkou Order and her title of the Fist of Shadow, Akali now strikes alone, ready to be the deadly weapon her people need. Though she holds onto all she learned from her master Shen, she has pledged to defend Ionia from its enemies, one kill at a time. Akali may strike in silence, but her message will be heard loud and clear: fear the assassin with no master.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:19:58.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/AKALI - 1708453198.jpg&quot;,
+        &quot;title&quot;: &quot;THE ROGUE ASSASSIN&quot;,
+        &quot;pivot&quot;: {
+            &quot;role_id&quot;: 1,
+            &quot;champion_id&quot;: 14
+        }
+    },
+    {
+        &quot;id&quot;: 15,
+        &quot;name&quot;: &quot;AZIR&quot;,
+        &quot;description&quot;: &quot;Azir was a mortal emperor of Shurima in a far distant age, a proud man who stood at the cusp of immortality. His hubris saw him betrayed and murdered at the moment of his greatest triumph, but now, millennia later, he has been reborn as an Ascended being of immense power. With his buried city risen from the sand, Azir seeks to restore Shurima to its former glory.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:22:44.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/AZIR - 1708453364.jpg&quot;,
+        &quot;title&quot;: &quot;THE EMPEROR OF THE SANDS&quot;,
+        &quot;pivot&quot;: {
+            &quot;role_id&quot;: 1,
+            &quot;champion_id&quot;: 15
+        }
+    },
+    {
+        &quot;id&quot;: 17,
+        &quot;name&quot;: &quot;GRAGAS&quot;,
+        &quot;description&quot;: &quot;Equal parts jolly and imposing, Gragas is a massive, rowdy brewmaster on his own quest for the perfect pint of ale. Hailing from parts unknown, he now searches for rare ingredients among the unblemished wastes of the Freljord, trying each recipe as he goes. Often intoxicated and extremely impulsive, he is legendary for the brawls he starts, which often end in all-night parties and widespread property damage. Any appearance from Gragas must surely foreshadow drinking and destruction&mdash;in that order.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:27:11.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/GRAGAS - 1708453631.jpg&quot;,
+        &quot;title&quot;: &quot;THE RABBLE ROUSER&quot;,
+        &quot;pivot&quot;: {
+            &quot;role_id&quot;: 1,
+            &quot;champion_id&quot;: 17
+        }
+    },
+    {
+        &quot;id&quot;: 21,
+        &quot;name&quot;: &quot;MALPHITE&quot;,
+        &quot;description&quot;: &quot;A massive creature of living stone, Malphite struggles to impose blessed order on a chaotic world. Birthed as a servitor-shard to an otherworldly obelisk known as the Monolith, he used his tremendous elemental strength to maintain and protect his progenitor, but ultimately failed. The only survivor of the destruction that followed, Malphite now endures Runeterra&#039;s soft folk and their fluid temperaments, while struggling to find a new role worthy of the last of his kind.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-20T18:39:01.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/MALPHITE - 1708454341.jpg&quot;,
+        &quot;title&quot;: &quot;SHARD OF THE MONOLITH&quot;,
+        &quot;pivot&quot;: {
+            &quot;role_id&quot;: 1,
+            &quot;champion_id&quot;: 21
+        }
+    }
+]</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-champion-role--role_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-champion-role--role_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-champion-role--role_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-champion-role--role_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-champion-role--role_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-champion-role--role_id-" data-method="GET"
+      data-path="api/champion/role/{role_id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-champion-role--role_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/champion/role/{role_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-champion-role--role_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-champion-role--role_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>role_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="role_id"                data-endpoint="GETapi-champion-role--role_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>Role id between 1 and 5 Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="champion-GETapi-top3-champion">Get top 3 most liked champions</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-top3-champion">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://lolify.fly.dev/api/top3/champion"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://lolify.fly.dev/api/top3/champion" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'https://lolify.fly.dev/api/top3/champion'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('GET', url, headers=headers)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'https://lolify.fly.dev/api/top3/champion';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-top3-champion">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;id&quot;: 6,
+        &quot;name&quot;: &quot;GALIO&quot;,
+        &quot;description&quot;: &quot;Outside the gleaming city of Demacia, the stone colossus Galio keeps vigilant watch. Built as a bulwark against enemy mages, he often stands motionless for decades until the presence of powerful magic stirs him to life. Once activated, Galio makes the most of his time, savoring the thrill of a fight and the rare honor of defending his countrymen. But his triumphs are always bittersweet, for the magic he destroys is also his source of reanimation, and each victory leaves him dormant once again.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T14:00:36.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/GALIO - 1708264836.jpg&quot;,
+        &quot;title&quot;: &quot;THE COLOSSUS&quot;,
+        &quot;users_count&quot;: 9
+    },
+    {
+        &quot;id&quot;: 7,
+        &quot;name&quot;: &quot;AATROX&quot;,
+        &quot;description&quot;: &quot;Once honored defenders of Shurima against the Void, Aatrox and his brethren would eventually become an even greater threat to Runeterra, and were defeated only by cunning mortal sorcery. But after centuries of imprisonment, Aatrox was the first to find freedom once more, corrupting and transforming those foolish enough to try and wield the magical weapon that contained his essence. Now, with stolen flesh, he walks Runeterra in a brutal approximation of his previous form, seeking an apocalyptic and long overdue vengeance.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T14:05:46.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/AATROX - 1708265146.jpg&quot;,
+        &quot;title&quot;: &quot;THE DARKIN BLADE&quot;,
+        &quot;users_count&quot;: 5
+    },
+    {
+        &quot;id&quot;: 13,
+        &quot;name&quot;: &quot;MISS FORTUNE&quot;,
+        &quot;description&quot;: &quot;A Bilgewater captain famed for her looks but feared for her ruthlessness, Sarah Fortune paints a stark figure among the hardened criminals of the port city. As a child, she witnessed the reaver king Gangplank murder her family&mdash;an act she brutally avenged years later, blowing up his flagship while he was still aboard. Those who underestimate her will face a beguiling and unpredictable opponent&hellip; and, likely, a bullet or two in their guts.&quot;,
+        &quot;created_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-02-18T20:22:41.000000Z&quot;,
+        &quot;image_link&quot;: &quot;https://lolify.fly.dev/storage/images/MISS FORTUNE - 1708287761.jpg&quot;,
+        &quot;title&quot;: &quot;THE BOUNTY HUNTER&quot;,
+        &quot;users_count&quot;: 3
+    }
+]</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-top3-champion" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-top3-champion"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-top3-champion"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-top3-champion" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-top3-champion">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-top3-champion" data-method="GET"
+      data-path="api/top3/champion"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-top3-champion', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/top3/champion</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-top3-champion"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-top3-champion"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="champion-POSTapi-champion-like--champion_id-">Like a champion</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Use this endpoint, passing authorization token, to indicate that current user has liked champion with given id
+This endpoint dosent return any response, just status code of 200 or 404 &quot;Unauthenticated&quot;</p>
+
+<span id="example-requests-POSTapi-champion-like--champion_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://lolify.fly.dev/api/champion/like/11"
 );
 
 const headers = {
@@ -1484,14 +3901,14 @@ const headers = {
 };
 
 fetch(url, {
-    method: "PUT",
+    method: "POST",
     headers,
 }).then(response =&gt; response.json());</code></pre></div>
 
 
 <div class="bash-example">
-    <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/champion/1" \
+    <pre><code class="language-bash">curl --request POST \
+    "https://lolify.fly.dev/api/champion/like/11" \
     --header "Authorization: Bearer {JWT_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1501,21 +3918,21 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost/api/champion/1'
+url = 'https://lolify.fly.dev/api/champion/like/11'
 headers = {
   'Authorization': 'Bearer {JWT_ACCESS_TOKEN}',
   'Content-Type': 'application/json',
   'Accept': 'application/json'
 }
 
-response = requests.request('PUT', url, headers=headers)
+response = requests.request('POST', url, headers=headers)
 response.json()</code></pre></div>
 
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/champion/1';
-$response = $client-&gt;put(
+$url = 'https://lolify.fly.dev/api/champion/like/11';
+$response = $client-&gt;post(
     $url,
     [
         'headers' =&gt; [
@@ -1530,40 +3947,36 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 </span>
 
-<span id="example-responses-PUTapi-champion--id-">
+<span id="example-responses-POSTapi-champion-like--champion_id-">
 </span>
-<span id="execution-results-PUTapi-champion--id-" hidden>
+<span id="execution-results-POSTapi-champion-like--champion_id-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-PUTapi-champion--id-"></span>:
+                id="execution-response-status-POSTapi-champion-like--champion_id-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-PUTapi-champion--id-"
+    <pre class="json"><code id="execution-response-content-POSTapi-champion-like--champion_id-"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-PUTapi-champion--id-" hidden>
+<span id="execution-error-POSTapi-champion-like--champion_id-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTapi-champion--id-">
+    <pre><code id="execution-error-message-POSTapi-champion-like--champion_id-">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-PUTapi-champion--id-" data-method="PUT"
-      data-path="api/champion/{id}"
+<form id="form-POSTapi-champion-like--champion_id-" data-method="POST"
+      data-path="api/champion/like/{champion_id}"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PUTapi-champion--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-champion-like--champion_id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
             </h3>
             <p>
-            <small class="badge badge-darkblue">PUT</small>
-            <b><code>api/champion/{id}</code></b>
-        </p>
-            <p>
-            <small class="badge badge-purple">PATCH</small>
-            <b><code>api/champion/{id}</code></b>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/champion/like/{champion_id}</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -1571,7 +3984,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-champion--id-"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-champion-like--champion_id-"
                value="Bearer {JWT_ACCESS_TOKEN}"
                data-component="header">
     <br>
@@ -1582,7 +3995,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="PUTapi-champion--id-"
+                              name="Content-Type"                data-endpoint="POSTapi-champion-like--champion_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -1593,7 +4006,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="PUTapi-champion--id-"
+                              name="Accept"                data-endpoint="POSTapi-champion-like--champion_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -1601,33 +4014,34 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+                <b style="line-height: 2;"><code>champion_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="id"                data-endpoint="PUTapi-champion--id-"
-               value="1"
+               step="any"               name="champion_id"                data-endpoint="POSTapi-champion-like--champion_id-"
+               value="11"
                data-component="url">
     <br>
-<p>The ID of the champion. Example: <code>1</code></p>
+<p>The ID of the champion. Example: <code>11</code></p>
             </div>
                     </form>
 
-                    <h2 id="endpoints-DELETEapi-champion--id-">Remove the specified resource from storage.</h2>
+                    <h2 id="champion-POSTapi-champion-dislike--champion_id-">Dislike a champion</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
+<p>Use this endpoint, passing authorization token, to indicate that current user has disliked champion with given id
+This endpoint dosent return any response, just status code of 200 or 404 &quot;Unauthenticated&quot;</p>
 
-
-<span id="example-requests-DELETEapi-champion--id-">
+<span id="example-requests-POSTapi-champion-dislike--champion_id-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/champion/1"
+    "https://lolify.fly.dev/api/champion/dislike/5"
 );
 
 const headers = {
@@ -1637,14 +4051,14 @@ const headers = {
 };
 
 fetch(url, {
-    method: "DELETE",
+    method: "POST",
     headers,
 }).then(response =&gt; response.json());</code></pre></div>
 
 
 <div class="bash-example">
-    <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/champion/1" \
+    <pre><code class="language-bash">curl --request POST \
+    "https://lolify.fly.dev/api/champion/dislike/5" \
     --header "Authorization: Bearer {JWT_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1654,21 +4068,21 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost/api/champion/1'
+url = 'https://lolify.fly.dev/api/champion/dislike/5'
 headers = {
   'Authorization': 'Bearer {JWT_ACCESS_TOKEN}',
   'Content-Type': 'application/json',
   'Accept': 'application/json'
 }
 
-response = requests.request('DELETE', url, headers=headers)
+response = requests.request('POST', url, headers=headers)
 response.json()</code></pre></div>
 
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/champion/1';
-$response = $client-&gt;delete(
+$url = 'https://lolify.fly.dev/api/champion/dislike/5';
+$response = $client-&gt;post(
     $url,
     [
         'headers' =&gt; [
@@ -1683,36 +4097,36 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 </span>
 
-<span id="example-responses-DELETEapi-champion--id-">
+<span id="example-responses-POSTapi-champion-dislike--champion_id-">
 </span>
-<span id="execution-results-DELETEapi-champion--id-" hidden>
+<span id="execution-results-POSTapi-champion-dislike--champion_id-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-DELETEapi-champion--id-"></span>:
+                id="execution-response-status-POSTapi-champion-dislike--champion_id-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-DELETEapi-champion--id-"
+    <pre class="json"><code id="execution-response-content-POSTapi-champion-dislike--champion_id-"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-DELETEapi-champion--id-" hidden>
+<span id="execution-error-POSTapi-champion-dislike--champion_id-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-DELETEapi-champion--id-">
+    <pre><code id="execution-error-message-POSTapi-champion-dislike--champion_id-">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-DELETEapi-champion--id-" data-method="DELETE"
-      data-path="api/champion/{id}"
+<form id="form-POSTapi-champion-dislike--champion_id-" data-method="POST"
+      data-path="api/champion/dislike/{champion_id}"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-champion--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-champion-dislike--champion_id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
             </h3>
             <p>
-            <small class="badge badge-red">DELETE</small>
-            <b><code>api/champion/{id}</code></b>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/champion/dislike/{champion_id}</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -1720,7 +4134,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-champion--id-"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-champion-dislike--champion_id-"
                value="Bearer {JWT_ACCESS_TOKEN}"
                data-component="header">
     <br>
@@ -1731,7 +4145,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="DELETEapi-champion--id-"
+                              name="Content-Type"                data-endpoint="POSTapi-champion-dislike--champion_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -1742,7 +4156,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="DELETEapi-champion--id-"
+                              name="Accept"                data-endpoint="POSTapi-champion-dislike--champion_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -1750,15 +4164,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+                <b style="line-height: 2;"><code>champion_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="id"                data-endpoint="DELETEapi-champion--id-"
-               value="1"
+               step="any"               name="champion_id"                data-endpoint="POSTapi-champion-dislike--champion_id-"
+               value="5"
                data-component="url">
     <br>
-<p>The ID of the champion. Example: <code>1</code></p>
+<p>The ID of the champion. Example: <code>5</code></p>
             </div>
                     </form>
 

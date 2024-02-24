@@ -28,10 +28,10 @@ class AuthController extends Controller
      *
      * @unauthenticated
      *
-     * @bodyParam email required string User email
-     * @bodyParam name required string User name
-     * @bodyParam password required string User password
-     * @bodyParam password_confirmation required string User password confirmtion
+     * @bodyParam email string required User email Example: michael@scott.com
+     * @bodyParam name string required User name Example: Michael Scott
+     * @bodyParam password string required User password Example: littlekidlover69
+     * @bodyParam password_confirmation string required User password confirmtion Example: littlekidlover69
      *
      * @response 200 {
      * "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3JlZ2lzdGVyIiwiaWF0IjoxNzA3ODQ2NDgzLCJleHAiOjE3MDc4NTAwODMsIm5iZiI6MTcwNzg0NjQ4MywianRpIjoiWWJEMU9Ia2FtMHBVQ1JhSiIsInN1YiI6IjEwIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsIm5hbWUiOiJwcmV6ZXMifQ.iSDUMleme6ztmn8cvs713_bxbNGgqzlQ-8kTWUqW83g",
@@ -50,7 +50,6 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request, UserRepository $userRepository)
     {
-        //dd('chuj');
 
         $token = $userRepository->register($request);
 
@@ -64,8 +63,8 @@ class AuthController extends Controller
      *
      * @unauthenticated
      *
-     * @bodyParam email required string User email
-     * @bodyParam password required string User password
+     * @bodyParam email string required User email Example: michael@scott.com
+     * @bodyParam password string required User password Example: littlekidlover69
      *
      * @response 200 {"access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzA3ODQ5MjE1LCJleHAiOjE3MDc4NTI4MTUsIm5iZiI6MTcwNzg0OTIxNSwianRpIjoiNnFqVG96SU1EUUNWTEl5MyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwibmFtZSI6InByZXplcyJ9.8cIexRisn6VIky90dhJHmfZkaIntSduK30nupLa-ggI","token_type":"bearer","expires_in":3600}
      * @response 401 {"error":"Unauthorized! Those credentials didn't match our records."}
