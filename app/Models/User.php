@@ -67,4 +67,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Champion::class, 'likes');
     }
+
+    /**
+     * Returns a list of logs for the user
+     */
+    public function logs()
+    {
+        return $this->hasMany(Log::class);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChampionController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,8 @@ Route::post('logout', [App\Http\Controllers\AuthController::class, 'logout']);
 Route::post('refresh', [App\Http\Controllers\AuthController::class, 'refresh']);
 Route::get('me', [App\Http\Controllers\AuthController::class, 'me']);
 Route::post('register', [App\Http\Controllers\AuthController::class, 'register']);
+
+Route::get('/profile/{username}', [UserProfileController::class, 'profile']);
 
 Route::get('champion', [ChampionController::class, 'index']);
 Route::get('cached/champion', [ChampionController::class, 'full']);
