@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
 Route::post('login', [App\Http\Controllers\AuthController::class, 'login']);
 Route::post('logout', [App\Http\Controllers\AuthController::class, 'logout']);
 Route::post('refresh', [App\Http\Controllers\AuthController::class, 'refresh']);

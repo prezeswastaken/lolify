@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
-use App\Http\Resources\ShowUserResource;
+use App\Http\Resources\UserProfileResource;
 use App\Repositories\UserRepository;
+use JWTAuth;
 
 /**
  * @group Authentication
@@ -89,7 +90,9 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return new ShowUserResource(auth()->user());
+        $user = JWTAuth::user();
+
+        return new UserProfileResource($user);
     }
 
     /**

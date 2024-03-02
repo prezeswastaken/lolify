@@ -16,6 +16,8 @@ class UserProfileResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'is_admin' => $this->is_admin,
+            'email' => $this->email,
             'likes' => $this->likes,
             'logs' => new LogResourceCollection($this->logs),
         ];
