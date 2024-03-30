@@ -32,7 +32,7 @@ class ChampionRepository
         $skills = [$q, $w, $e, $r, $passive];
 
         $roleIds = $request->roles;
-        //$roleIds = [1, 2];
+
         $championData = $request->only(['name', 'description', 'title']);
 
         $image = $request->file('image_file');

@@ -1,9 +1,15 @@
 <?php
 
+test('champion index returns status 200', function () {
+    $response = $this->get('/api/champion');
+
+    $response->assertStatus(200);
+});
+
 test('champion index returns champion array', function () {
     $response = $this->get('/api/champion');
 
-    $response->assertStatus(200)->assertJsonStructure([[
+    $response->assertJsonStructure([[
         'id',
         'name',
         'description',
@@ -14,18 +20,24 @@ test('champion index returns champion array', function () {
     ]]);
 });
 
-test('champion show returns champion object', function () {
-    $response = $this->get('/api/champion/1');
+test('champion show returns status 200', function () {
+    $response = $this->get('/api/champion/6');
 
-    $response->assertStatus(200)->assertJsonStructure([
+    $response->assertStatus(200);
+});
+
+test('champion show returns champion object', function () {
+    $response = $this->get('/api/champion/6');
+
+    $response->assertJsonStructure([
         'id',
         'name',
-        'description',
-        'created_at',
-        'updated_at',
         'image_link',
+        'description',
         'title',
         'current_user_likes_it',
+        'created_at',
+        'updated_at',
         'likes_count',
         'users_that_liked',
         'roles',
