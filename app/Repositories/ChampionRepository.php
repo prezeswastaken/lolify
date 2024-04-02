@@ -5,17 +5,19 @@ namespace App\Repositories;
 use App\Http\Requests\StoreChampionRequest;
 use App\Http\Resources\ShowChampionResource;
 use App\Models\Champion;
-use App\Models\User;
-use JWTAuth;
 
-/**
- * Creates champion and returns it
- */
 class ChampionRepository
 {
-    public function create(StoreChampionRequest $request, SkillRepository $skillRepository, SkinRepository $skinRepository)
-    {
-        // Extract skin images
+    public function __construct(
+        private LogRepository $logRepository,
+        private SkinRepository $skinRepository,
+        private SkillRepository $skillRepository,
+    ) {
+    }
+
+    public function create(
+        StoreChampionRequest $request,
+    ) {
         $skins = [
             $request->file('skin_1_image_file'),
             $request->file('skin_2_image_file'),
@@ -23,7 +25,6 @@ class ChampionRepository
             $request->file('skin_4_image_file'),
         ];
 
-        // Extract skills from request
         $q = ['name' => $request['q_name'], 'image_file' => $request->file('q_image_file'), 'letter' => 'q'];
         $w = ['name' => $request['w_name'], 'image_file' => $request->file('w_image_file'), 'letter' => 'w'];
         $e = ['name' => $request['e_name'], 'image_file' => $request->file('e_image_file'), 'letter' => 'e'];
@@ -50,12 +51,12 @@ class ChampionRepository
         $champion->roles()->attach($roleIds);
 
         foreach ($skills as $skill) {
-            $skillRepository->create($champion, $skill);
+            $this->skillRepository->create($champion, $skill);
         }
 
         foreach (array_values($skins) as $i => $skinImageFile) {
             if ($skinImageFile) {
-                $skinRepository->create($champion, $skinImageFile, $i);
+                $this->skinRepository->create($champion, $skinImageFile, $i);
             }
         }
 
@@ -70,60 +71,6 @@ class ChampionRepository
 
         return $championsFull;
 
-    }
-
-    /**
-     * Adds certain champion to current user's likes
-     */
-    public function like(Champion $champion)
-    {
-        /**
-         * @var User $user
-         */
-        $user = JWTAuth::user();
-
-        /**
-         * @var bool $alreadyLikes
-         */
-        $alreadyLikes = $user->likes()->whereId($champion->id)->exists();
-        if ($alreadyLikes === true) {
-            return;
-        }
-
-        // syncWithoutDetaching ensures that user can like a champion only once
-        /** @var User $user */
-        $user->likes()->syncWithoutDetaching([$champion->id]);
-
-        $logRepository = new LogRepository;
-        $logRepository->createUserLog(
-            UserLog::Like,
-            $champion->name,
-        );
-    }
-
-    public function dislike(Champion $champion)
-    {
-        /**
-         * @var User $user
-         */
-        $user = JWTAuth::user();
-
-        /**
-         * @var bool $alreadyLikes
-         */
-        $alreadyLikes = $user->likes()->whereId($champion->id)->exists();
-        if ($alreadyLikes === false) {
-            return;
-        }
-
-        // Remove the association between the user and the champion
-        $user->likes()->detach($champion->id);
-
-        $logRepository = new LogRepository;
-        $logRepository->createUserLog(
-            UserLog::Dislike,
-            $champion->name,
-        );
     }
 
     /**

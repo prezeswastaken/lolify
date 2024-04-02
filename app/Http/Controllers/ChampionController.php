@@ -8,8 +8,7 @@ use App\Http\Resources\ShowChampionResource;
 use App\Models\Champion;
 use App\Models\Role;
 use App\Repositories\ChampionRepository;
-use App\Repositories\SkillRepository;
-use App\Repositories\SkinRepository;
+use App\Repositories\LikeRepository;
 use JWTAuth;
 
 class ChampionController extends Controller
@@ -64,9 +63,11 @@ class ChampionController extends Controller
      * @bodyParam name string required Example: Yasuo
      * @bodyParam description string Example: The NoobChamp
      */
-    public function store(StoreChampionRequest $request, ChampionRepository $championRepository, SkillRepository $skillRepository, SkinRepository $skinRepository)
-    {
-        return $championRepository->create($request, $skillRepository, $skinRepository);
+    public function store(
+        StoreChampionRequest $request,
+        ChampionRepository $championRepository,
+    ) {
+        return $championRepository->create($request);
     }
 
     /**
@@ -117,9 +118,9 @@ class ChampionController extends Controller
      *
      * @group Champion
      */
-    public function like(Champion $champion, ChampionRepository $championRepository)
+    public function like(Champion $champion, LikeRepository $likeRepository)
     {
-        return $championRepository->like($champion);
+        return $likeRepository->like($champion);
     }
 
     /**
@@ -130,9 +131,9 @@ class ChampionController extends Controller
      *
      * @group Champion
      */
-    public function dislike(Champion $champion, ChampionRepository $championRepository)
+    public function dislike(Champion $champion, LikeRepository $likeRepository)
     {
-        return $championRepository->dislike($champion);
+        return $likeRepository->dislike($champion);
     }
 
     /**
