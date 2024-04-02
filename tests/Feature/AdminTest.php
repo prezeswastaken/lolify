@@ -71,3 +71,24 @@ test('admin can create champion and store their images for champion, skills and 
 
     $champion->delete();
 });
+
+test('admin can delete champions', function () {
+    $champion = Champion::factory()->create();
+    $this->assertNotNull(Champion::find($champion->id));
+
+    $response = $this->actingAs(User::factory()->admin()->make())->delete("/api/champion/$champion->id");
+    $response->assertStatus(200);
+    $this->assertNull(Champion::find($champion->id));
+
+});
+
+test("normal user can't delete champions", function () {
+    $champion = Champion::factory()->create();
+    $this->assertNotNull(Champion::find($champion->id));
+
+    $response = $this->actingAs(User::factory()->make())->delete("/api/champion/$champion->id");
+    $response->assertStatus(403);
+    $this->assertNotNull(Champion::find($champion->id));
+
+    $champion->delete();
+});

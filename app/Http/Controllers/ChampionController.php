@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\Repositories\ChampionRepository;
 use App\Repositories\SkillRepository;
 use App\Repositories\SkinRepository;
+use JWTAuth;
 
 class ChampionController extends Controller
 {
@@ -99,7 +100,13 @@ class ChampionController extends Controller
      */
     public function destroy(Champion $champion)
     {
-        $champion->delete();
+        if (JWTAuth::user()->is_admin === 'true') {
+            $champion->delete();
+
+            return response()->json(null, 200);
+        } else {
+            return response()->json(null, 403);
+        }
     }
 
     /**

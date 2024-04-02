@@ -45,3 +45,17 @@ test('champion show returns champion object', function () {
         'skins',
     ]);
 });
+
+test('top 3 returns champions json', function () {
+    $response = $this->get('/api/top3/champion');
+
+    $response->assertJsonStructure([[
+        'id',
+        'name',
+        'description',
+        'created_at',
+        'updated_at',
+        'image_link',
+        'title',
+    ]]);
+});
