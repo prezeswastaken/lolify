@@ -51,7 +51,6 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request, UserRepository $userRepository)
     {
-
         $token = $userRepository->register($request);
 
         return $this->respondWithToken($token);
