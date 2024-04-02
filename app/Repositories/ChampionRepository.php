@@ -9,7 +9,6 @@ use App\Models\Champion;
 class ChampionRepository
 {
     public function __construct(
-        private LogRepository $logRepository,
         private SkinRepository $skinRepository,
         private SkillRepository $skillRepository,
     ) {
