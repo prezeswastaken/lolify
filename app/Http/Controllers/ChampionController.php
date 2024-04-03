@@ -101,13 +101,13 @@ class ChampionController extends Controller
      */
     public function destroy(Champion $champion)
     {
-        if (JWTAuth::user()->is_admin === 'true') {
-            $champion->delete();
+        if (JWTAuth::user()->is_admin !== 'true') {
 
-            return response()->json(null, 200);
-        } else {
             return response()->json(null, 403);
+
         }
+
+        $champion->delete();
     }
 
     /**

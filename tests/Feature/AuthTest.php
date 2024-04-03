@@ -8,6 +8,7 @@ test('user can login', function () {
     $response
         ->assertStatus(200)
         ->assertJsonStructure(['access_token', 'token_type', 'expires_in']);
+    $this->assertAuthenticated();
 });
 
 test("user can't login with wrong credentials", function () {

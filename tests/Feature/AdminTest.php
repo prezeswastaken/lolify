@@ -24,7 +24,7 @@ test('admin can create champion and store their images for champion, skills and 
     $image = UploadedFile::fake()->image('aatrox.jpg');
 
     $response = $this->actingAs(User::factory()->admin()->make())->post('/api/champion', [
-        'name' => 'Chuj',
+        'name' => 'Aatrox',
         'title' => 'The Darkin Blade',
         'description' => 'Aatrox is a legendary warrior, one of only five that remain of an ancient',
         'image_file' => $image,
