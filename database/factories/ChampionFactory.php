@@ -18,7 +18,7 @@ class ChampionFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Lissandra',
+            'name' => $this->faker->name,
             'description' => 'A mage who wields the power of true ice, using it to bring an end to all who oppose her.',
             'title' => 'The Ice Witch',
             'image_link' => 'fake_image_link.jpg',
