@@ -69,7 +69,6 @@ test('admin can create champion and store their images for champion, skills and 
         Storage::assertExists($image_path);
     }
 
-    $champion->delete();
 });
 
 test('admin can delete champions', function () {
@@ -90,5 +89,4 @@ test("normal user can't delete champions", function () {
     $response->assertStatus(403);
     $this->assertNotNull(Champion::find($champion->id));
 
-    $champion->delete();
 });

@@ -16,8 +16,6 @@ test('user can like a champion', function () {
 
     $this->assertTrue($user->likes->contains($champion));
 
-    $user->delete();
-    $champion->delete();
 });
 
 test('user can dislike a champion', function () {
@@ -33,8 +31,6 @@ test('user can dislike a champion', function () {
 
     $this->assertFalse($user->likes->contains($champion));
 
-    $user->delete();
-    $champion->delete();
 });
 
 test("user can't like a champiion that dosen't exist", function () {
@@ -44,5 +40,4 @@ test("user can't like a champiion that dosen't exist", function () {
 
     $response->assertStatus(404);
 
-    $user->delete();
 });

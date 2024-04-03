@@ -11,10 +11,18 @@
 |
 */
 
+use Database\Seeders\ChampionSeeder;
+use Database\Seeders\RoleSeeder;
+use Database\Seeders\UserSeeder;
+
 uses(
     Tests\TestCase::class,
-    // Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('Feature');
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
+)->beforeEach(function () {
+    $this->seed(RoleSeeder::class);
+    $this->seed(ChampionSeeder::class);
+    $this->seed(UserSeeder::class);
+})->in('Feature');
 
 /*
 |--------------------------------------------------------------------------

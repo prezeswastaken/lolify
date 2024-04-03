@@ -18,8 +18,6 @@ test("user can show other user's profile by their name", function () {
         'logs',
     ]);
 
-    $user->delete();
-    $user2->delete();
 });
 
 test("user can't show user that dosen't exist", function () {
@@ -29,5 +27,4 @@ test("user can't show user that dosen't exist", function () {
 
     $response->assertStatus(404);
 
-    $user->delete();
 });

@@ -17,8 +17,6 @@ test('log is created when user likes a champion', function () {
         'text' => "$user->name liked $champion->name",
     ]);
 
-    $user->delete();
-    $champion->delete();
 });
 
 test('log is created when user dislikes a champion', function () {
@@ -36,6 +34,4 @@ test('log is created when user dislikes a champion', function () {
         'text' => "$user->name disliked $champion->name",
     ]);
 
-    $user->delete();
-    $champion->delete();
 });
