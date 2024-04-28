@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -25,10 +27,8 @@ class User extends Authenticatable implements JWTSubject
 
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
      */
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return ['name' => $this->name];
     }
@@ -63,7 +63,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Returns a list of champions liked by the user
      */
-    public function likes()
+    public function likes(): BelongsToMany
     {
         return $this->belongsToMany(Champion::class, 'likes');
     }
@@ -71,7 +71,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Returns a list of logs for the user
      */
-    public function logs()
+    public function logs(): HasMany
     {
         return $this->hasMany(Log::class);
     }

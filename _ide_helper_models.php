@@ -30,6 +30,7 @@ namespace App\Models{
  * @property-read int|null $skins_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
+ * @method static \Database\Factories\ChampionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Champion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Champion newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Champion query()
@@ -64,6 +65,27 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ChampionImage whereUpdatedAt($value)
  */
 	class ChampionImage extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Log
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $text
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Log newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Log newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Log query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Log whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Log whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Log whereText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Log whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Log whereUserId($value)
+ */
+	class Log extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -128,6 +150,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Champion> $likes
  * @property-read int|null $likes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Log> $logs
+ * @property-read int|null $logs_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens

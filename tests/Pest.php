@@ -22,6 +22,7 @@ uses(
     $this->seed(RoleSeeder::class);
     $this->seed(ChampionSeeder::class);
     $this->seed(UserSeeder::class);
+
 })->in('Feature');
 
 /*
